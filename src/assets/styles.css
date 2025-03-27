@@ -1,0 +1,21 @@
+a {
+  text-decoration: underline;
+}
+
+a:link {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+
+ul li {
+  margin-left: 10px;
+}

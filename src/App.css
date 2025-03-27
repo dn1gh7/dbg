@@ -1,0 +1,9 @@
+#root {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+p {
+  margin-bottom: 25px;
+}
