@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
 import { Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { bulgarica, bibliothek } from './publications_paths';
 
 import 'swiper/css';

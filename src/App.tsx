@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import About from './components/about';
 import ContentContainer from './components/contentContainer';
-import Footer from './components/footer';
 import NavBar from './components/navBar';
 import Links from './components/links/links';
 import Publications from './components/publications1/publications';
