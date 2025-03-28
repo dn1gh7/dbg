@@ -53,7 +53,7 @@ export default function Publications() {
           <SwiperSlide key={i}>
             <img
               className="hover:grayscale-100"
-              src={p.img_path}
+              src={'dbg' + p.img_path}
               alt={p.title}
             />
           </SwiperSlide>
@@ -81,7 +81,7 @@ export default function Publications() {
             <a href="/9783954770779_f.pdf">
               <img
                 className="hover:grayscale-100"
-                src={'/kek9.jpg'}
+                src={'dbg/kek9.jpg'}
                 alt={p.title}
               />
             </a>
