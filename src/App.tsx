@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router';
 import About from './components/about';
 import ContentContainer from './components/contentContainer';
 import NavBar from './components/navBar';
@@ -28,7 +28,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <NavBar
           handleNavClick={(title) => setPageTitle(title)}
           navItems={navItems}
@@ -45,7 +45,7 @@ function App() {
             <Route path="bulgarianStudies" element={<BulgarianStudies />} />
           </Routes>
         </ContentContainer>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
