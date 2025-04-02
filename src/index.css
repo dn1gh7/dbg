@@ -5,7 +5,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 16pt;
+  font-size: 15pt;
 
   color-scheme: light dark;
   color: black;
@@ -15,6 +15,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable;
+}
+
+@media only screen and (max-width: 400px) {
+  :root {
+    font-size: 2rem;
+  }
 }
 
 @theme {

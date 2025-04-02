@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router';
+import { Routes, Route, HashRouter } from 'react-router';
 import About from './components/about';
 import ContentContainer from './components/contentContainer';
 import NavBar from './components/navBar';

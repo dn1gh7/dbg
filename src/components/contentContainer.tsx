@@ -8,9 +8,23 @@ export default function ContentContainer({
   title,
 }: ContentContainerProps) {
   return (
-    <div className="flex-8 min-w-0">
-      <div className="w-full h-45 bg-[url(/AlexanderNevskyCathedral-Sofia.jpg)] bg-no-repeat bg-cover bg-center content-center text-3xl font-medium text-white ">
-        <p className="pl-10">{title}</p>
+    <div className="flex-8 p-8 min-w-0">
+      <div className="flex flex-row space-x-6 border-b-2 pb-10 h-50">
+        <div className="w-1/2  bg-tea bg-[url(/images/P1080694_more_expanded.JPG)] bg-cover bg-no-repeat content-center text-3xl font-medium text-white ">
+          {/* <div className="w-full h-45 bg-tea bg-[url(/images/P1080694.JPG),_url(/images/P1030776.JPG),_url(/images/P1030760.JPG)] [background-size:33%,33%,33%] bg-no-repeat [background-position:left,center,right]  content-center text-3xl font-medium text-white "></div> */}
+          <p className="pl-10">{title}</p>
+        </div>
+
+        <img
+          src="dbg/images/P1030776.JPG"
+          className="w-1/4 object-cover"
+          alt=""
+        />
+        <img
+          src="dbg/images/P1030760.jpg"
+          className="w-1/4 object-cover"
+          alt=""
+        />
       </div>
       <section className="p-10">{children}</section>
     </div>

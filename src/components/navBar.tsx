@@ -14,7 +14,7 @@ interface NavBarProps {
 export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
   return (
     <>
-      <nav className="h-screen flex-shrink-0 min-w-[320px] flex-1 text-black px-5 bg-amber-100 justify-items-center sticky top-0">
+      <nav className="h-screen flex-shrink-0 min-w-[320px] flex-1 text-black px-5 shadow-md justify-items-center sticky top-0">
         <Link to="/">
           <img
             className="w-50 h-50"
@@ -23,15 +23,15 @@ export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
           ></img>
         </Link>
 
-        <ul>
+        <ul className="">
           {navItems.map((item, i) => (
-            <li key={i} className="mb-4">
+            <li key={i} className=" ">
               <Link
                 onClick={(e) => {
                   e.preventDefault;
                   handleNavClick(item.title);
                 }}
-                className="font-medium mb-10 text-l"
+                className="font-medium  text-l block p-3 hover:bg-blue-400 hover:text-white active:inset-2"
                 to={item.link}
               >
                 {item.title}
