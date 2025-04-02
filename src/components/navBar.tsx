@@ -13,11 +13,14 @@ interface NavBarProps {
 
 export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
   return (
-    <>
-      <nav className="h-screen flex-shrink-0 min-w-[320px] flex-1 text-black px-5 shadow-md justify-items-center sticky top-0">
+    <nav
+      className="h-screen w-150 flex flex-1 flex-col justify-between
+     text-black px-5 shadow-md sticky top-0"
+    >
+      <div className="">
         <Link to="/">
           <img
-            className="w-50 h-50"
+            className="w-50 h-50 justify-self-center"
             src={svg}
             alt="Logo der Deutsch-Bulgarischen Gesellschaft"
           ></img>
@@ -39,8 +42,18 @@ export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
             </li>
           ))}
         </ul>
-        <Outlet></Outlet>
-      </nav>
-    </>
+      </div>
+
+      <section className="self-center mb-5">
+        <a href="" className="underline p-2">
+          Impressum
+        </a>
+        <a href="" className="underline p-2">
+          Kontakt
+        </a>
+      </section>
+
+      <Outlet></Outlet>
+    </nav>
   );
 }

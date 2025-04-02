@@ -16,7 +16,7 @@ export default function Events() {
       <h2>Aktuelle Veranstaltungen</h2>
       <div className="flex md:flex-row ">
         {events.map((e) => (
-          <div className="h-50 w-50 bg-green-500 p-5 my-10">
+          <div className="h-50 w-50 bg-green-500 p-5 my-10 mr-5">
             <h2>{e.title}</h2>
           </div>
         ))}
