@@ -1,6 +1,7 @@
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { bulgarica, bibliothek } from './publications_paths';
+import { BASE_URL } from '../../globlas';
 
 import 'swiper/css';
 import 'swiper/swiper-bundle.css';
@@ -81,7 +82,7 @@ export default function Publications() {
             <a href="/9783954770779_f.pdf">
               <img
                 className="hover:grayscale-100"
-                src={'dbg/kek9.jpg'}
+                src={BASE_URL + '/kek9.jpg'}
                 alt={p.title}
               />
             </a>
