@@ -34,7 +34,7 @@ export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
                   e.preventDefault;
                   handleNavClick(item.title);
                 }}
-                className="font-medium  text-l block p-3 hover:bg-blue-400 hover:text-white active:inset-2"
+                className="font-medium  text-l block p-3 hover:bg-blue-500 hover:text-white active:inset-2"
                 to={item.link}
               >
                 {item.title}

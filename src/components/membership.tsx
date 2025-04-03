@@ -60,8 +60,8 @@ export default function Membership() {
           <span className="">Beitrittserklärung herunterladen</span>
           <svg
             className="inline ml-2"
-            width="40px"
-            height="40px"
+            width="35px"
+            height="35px"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
