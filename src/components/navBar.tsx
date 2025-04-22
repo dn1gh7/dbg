@@ -14,7 +14,7 @@ interface NavBarProps {
 export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
   return (
     <nav
-      className="h-screen w-150 flex flex-1 flex-col justify-between
+      className="h-screen  hidden md:flex flex-1 flex-col justify-between
      text-black px-5 shadow-md sticky top-0"
     >
       <div className="">
@@ -34,7 +34,7 @@ export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
                   e.preventDefault;
                   handleNavClick(item.title);
                 }}
-                className="font-medium  text-l block p-3 hover:bg-blue-500 hover:text-white active:inset-2"
+                className="font-medium  text-l block p-3 hover:bg-[#82C09A] hover:text-white active:inset-2"
                 to={item.link}
               >
                 {item.title}

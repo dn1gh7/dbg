@@ -6,11 +6,11 @@ export default function Links() {
       {lol.map((category, i) => (
         <section key={i}>
           <h2 className="mt-10 mb-3">{category.title}</h2>
-          <ul className="ml-5">
+          <ul className="ml-5 list-disc marker:text-cambridge">
             {category.links.map((link, j) => (
               <li key={j}>
                 <a
-                  className="underline hover:bg-blue-100 visited:text-visited"
+                  className="underline hover:bg-cambridge visited:text-visited"
                   target="_blank"
                   href={link.ref}
                 >

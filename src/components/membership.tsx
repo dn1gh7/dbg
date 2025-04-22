@@ -53,7 +53,7 @@ export default function Membership() {
         </p>
 
         <a
-          className="bg-blue-500 rounded-sm font-semibold hover:bg-blue-600 transition:bg transition delay-50 duration-200 ease-in text-white inline-block p-3 my-5"
+          className="bg-cambridge rounded-sm font-semibold hover:bg-[#52A371] transition:bg transition delay-50 duration-200 ease-in text-white inline-block p-3 my-5"
           href="/dbg/Beitrittserklaerung.pdf"
           target="_blank"
         >

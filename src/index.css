@@ -26,6 +26,7 @@
 
 @theme {
   --color-visited: #551a8b;
+  --color-cambridge: #82c09a;
 }
 
 @layer base {
