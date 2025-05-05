@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import svg from '../assets/logo_rund.svg';
 import { Link, Outlet } from 'react-router';
 
@@ -7,53 +8,69 @@ interface NavItem {
 }
 
 interface NavBarProps {
-  handleNavClick: (title: string) => void;
   navItems: NavItem[];
 }
 
-export default function NavBar({ navItems, handleNavClick }: NavBarProps) {
+export default function NavBar({ navItems }: NavBarProps) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav
-      className="h-screen  hidden md:flex flex-1 flex-col justify-between
-     text-black px-5 shadow-md sticky top-0"
-    >
-      <div className="">
-        <Link to="/">
-          <img
-            className="w-50 h-50 justify-self-center"
-            src={svg}
-            alt="Logo der Deutsch-Bulgarischen Gesellschaft"
-          ></img>
-        </Link>
-
-        <ul className="">
-          {navItems.map((item, i) => (
-            <li key={i} className=" ">
-              <Link
-                onClick={(e) => {
-                  e.preventDefault;
-                  handleNavClick(item.title);
-                }}
-                className="font-medium  text-l block p-3 hover:bg-[#82C09A] hover:text-white active:inset-2"
-                to={item.link}
-              >
-                {item.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <>
+      {/* Mobile Hamburger Button */}
+      <div className="fixed md:hidden w-64 p-4 z-50">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-black focus:outline-none"
+        >
+          <svg
+            className="h-8 w-8"
+            fill=""
+            stroke={isOpen ? '#000000' : '#ffffff'}
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
+            />
+          </svg>
+        </button>
       </div>
 
-      <section className="self-center mb-5">
-        <a href="" className="underline p-2">
-          Impressum
-        </a>
-        <a href="" className="underline p-2">
-          Kontakt
-        </a>
-      </section>
+      {/* Sidebar for Desktop & Responsive Drawer */}
+      <nav
+        className={`fixed h-screen w-64 bg-white shadow-md transform 
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
+        transition-transform duration-300 ease-in-out  md:translate-x-0 md:flex md:flex-col md:w-64 md:sticky`}
+      >
+        <div className="p-4">
+          <Link to="/">
+            <img className="h-30 mx-auto" src={svg} alt="Logo" />
+          </Link>
 
-      <Outlet></Outlet>
-    </nav>
+          <ul className="mt-6">
+            {navItems.map((item, i) => (
+              <li key={i}>
+                <Link
+                  className="block p-3 font-medium text-lg hover:bg-[#82C09A] hover:text-white"
+                  to={item.link}
+                  onClick={() => setIsOpen(false)} // Close menu on click
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-auto mb-6 text-center underline decoration-cambridge decoration-2">
+          <Link to={'impressum'} onClick={() => setIsOpen(false)}>
+            Impressum
+          </Link>
+        </div>
+
+        <Outlet />
+      </nav>
+    </>
   );
 }

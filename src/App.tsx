@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, HashRouter } from 'react-router';
+import { Routes, Route, HashRouter, useLocation } from 'react-router';
 import About from './components/about';
 import ContentContainer from './components/contentContainer';
 import NavBar from './components/navBar';
@@ -10,7 +10,35 @@ import BulgarianStudies from './components/bulgarianStudies';
 import Membership from './components/membership';
 import Events from './components/events';
 import Home from './components/home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Impressum from './components/impressum';
+
+type TitleManagerProps = {
+  setPageTitle: (title: string) => void;
+};
+
+function TitleManager({ setPageTitle }: TitleManagerProps) {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pathToTitleMap: Record<string, string> = {
+      '/': 'Startseite',
+      '/about': 'Über uns',
+      '/events': 'Veranstaltungen',
+      '/publications': 'Publikationen',
+      '/links': 'Links',
+      '/membership': 'Mitgliedschaft',
+      '/presented': 'Vorgestellt',
+      '/bulgarianStudies': 'Bulgaristik in Deutschland',
+      '/impressum': 'Impressum',
+    };
+
+    const title = pathToTitleMap[location.pathname] || '';
+    setPageTitle(title);
+  }, [location, setPageTitle]);
+
+  return null;
+}
 
 function App() {
   const [pageTitle, setPageTitle] = useState('');
@@ -29,10 +57,8 @@ function App() {
   return (
     <>
       <HashRouter>
-        <NavBar
-          handleNavClick={(title) => setPageTitle(title)}
-          navItems={navItems}
-        />
+        <NavBar navItems={navItems} />
+        <TitleManager setPageTitle={setPageTitle} />
         <ContentContainer title={pageTitle}>
           <Routes>
             <Route path="/" element={<Home />}></Route>
@@ -43,6 +69,7 @@ function App() {
             <Route path="membership" element={<Membership />} />
             <Route path="presented" element={<Presented />} />
             <Route path="bulgarianStudies" element={<BulgarianStudies />} />
+            <Route path="impressum" element={<Impressum />} />
           </Routes>
         </ContentContainer>
       </HashRouter>

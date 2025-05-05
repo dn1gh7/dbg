@@ -1,10 +1,4 @@
-// import { useState } from 'react';
-
-// interface Event {
-//   title: string;
-//   imgPaths: string[];
-//   pdfPath: string;
-// }
+import { BASE_URL } from '../globlas';
 
 export default function Events() {
   const events = [
@@ -14,9 +8,14 @@ export default function Events() {
   return (
     <>
       <h2>Aktuelle Veranstaltungen</h2>
-      <div className="flex md:flex-row ">
+      <div className="flex md:flex-row">
         {events.map((e) => (
-          <div className="h-50 w-50 bg-green-500 p-5 my-10 mr-5">
+          <div className="flex flex-col border-[#b8ccf2] border-4 rounded-md my-10 mr-5 h-50 w-75">
+            <img
+              src={BASE_URL + '/Cyril-methodius-small.jpg'}
+              className="h-1/2 object-cover object-top"
+              alt=""
+            />
             <h2>{e.title}</h2>
           </div>
         ))}

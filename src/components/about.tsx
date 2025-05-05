@@ -50,12 +50,12 @@ export default function About() {
           versierte Wirkung zu erzielen.
         </p>
         <Link
-          className="self-center text-xl rounded-md px-5 py-3 border-3 border-[#B8CCF2] "
+          className="self-center text-xl rounded-md px-5 py-3 bg-cambridge font-semibold hover:bg-[#52A371] transition:bg transition delay-50 duration-200 ease-in text-white mt-20"
           to="/membership"
         >
           <span>
             Unterstützen auch Sie unsere Arbeit und werden Sie Mitglied der
-            Deutsch-Bulgarischen Gesellschaft e. V.
+            Deutsch-Bulgarischen Gesellschaft
           </span>
         </Link>
 
