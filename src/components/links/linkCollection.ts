@@ -7,29 +7,6 @@ export const links = [
 
 export const lol = [
   {
-    title: 'Honorarkonsulate der Republik Bulgarien in Deutschland',
-    links: [
-      {
-        text: 'Hamburg und Schleswig-Holstein',
-        ref: 'https://www.bulgarischeskonsulat-hamburg.de',
-      },
-      { text: 'Hessen', ref: 'https://www.honorarkonsul-bulgarien-hessen.de' },
-      { text: 'Nordrhein-Westfalen', ref: 'https://www.bulgarien-nrw.de/' },
-      {
-        text: 'Sachsen-Anhalt',
-        ref: 'www.honorarkonsul-in-sachsen-anhalt.de',
-      },
-      {
-        text: 'Rheinland-Pfalz',
-        ref: 'https://honorarkonsul-bulgarien-rlp.de/',
-      },
-      {
-        text: 'Sachsen',
-        ref: 'https://www.honorarkonsul-bulgarien-sachsen.de',
-      },
-    ],
-  },
-  {
     title: 'Deutsch-bulgarische Gesellschaften/Vereine in Deutschland',
     links: [
       {
@@ -67,16 +44,6 @@ export const lol = [
       {
         text: 'Bulgarisches Kulturinstitut in Berlin',
         ref: 'https://www.bulgarisches-kulturinstitut.de/',
-      },
-    ],
-  },
-  {
-    title: 'Verlage',
-    links: [
-      { text: 'Verlag Frank & Timme', ref: 'https://www.frank-timme.de/de' },
-      {
-        text: 'Akademische Verlagsgemeinschaft München',
-        ref: 'https://www.avm-verlag.de/',
       },
     ],
   },
@@ -122,6 +89,40 @@ export const lol = [
       {
         text: 'Universität Regensburg',
         ref: 'https://www.uni-regensburg.de/europaeum/bulgarisch-kompakt/index.html',
+      },
+    ],
+  },
+  {
+    title: 'Honorarkonsulate der Republik Bulgarien in Deutschland',
+    links: [
+      {
+        text: 'Hamburg und Schleswig-Holstein',
+        ref: 'https://www.bulgarischeskonsulat-hamburg.de',
+      },
+      { text: 'Hessen', ref: 'https://www.honorarkonsul-bulgarien-hessen.de' },
+      { text: 'Nordrhein-Westfalen', ref: 'https://www.bulgarien-nrw.de/' },
+      {
+        text: 'Sachsen-Anhalt',
+        ref: 'www.honorarkonsul-in-sachsen-anhalt.de',
+      },
+      {
+        text: 'Rheinland-Pfalz',
+        ref: 'https://honorarkonsul-bulgarien-rlp.de/',
+      },
+      {
+        text: 'Sachsen',
+        ref: 'https://www.honorarkonsul-bulgarien-sachsen.de',
+      },
+    ],
+  },
+
+  {
+    title: 'Verlage',
+    links: [
+      { text: 'Verlag Frank & Timme', ref: 'https://www.frank-timme.de/de' },
+      {
+        text: 'Akademische Verlagsgemeinschaft München',
+        ref: 'https://www.avm-verlag.de/',
       },
     ],
   },

@@ -17,8 +17,8 @@ interface Publications {
 export default function Publications() {
   return (
     <>
-      <div className=" min-w-0">
-        <h3>
+      <div className="text-xs md:text-base min-w-0">
+        <h3 className="text-xs md:text-lg">
           Die Schriften der Deutsch-Bulgarischen Gesellschaft werden seit 2004
           von der „Dr. Horst Röhling-Stiftung“ gefördert. Die Stiftung wurde von
           unserem Ehrenmitglied Dr. Horst Röhling (1929-2017) beim Förderfonds
@@ -26,7 +26,7 @@ export default function Publications() {
           dient der Förderung von Wissenschaft und Forschung, insbesondere der
           Beziehungen zwischen Deutschland und Bulgarien.
         </h3>
-        <section className="my-15  p-10">
+        <section className="my-15">
           <h2 className="text-xl">Bulgarische Bibliothek</h2>
           <p>
             In der 1916 von dem führenden Balkanologen und Bulgaristen Gustav
@@ -63,7 +63,7 @@ export default function Publications() {
             ))}
           </Swiper>
         </section>
-        <section className="my-15  p-10">
+        <section className="my-15  ">
           <h2 className="text-xl">Bulgarien Jahrbuch (seit 2017 Bulgarica)</h2>
           <p>
             Das Bulgarien-Jahrbuch, seit 2017 fortgeführt als Bulgarica, ist das
@@ -98,7 +98,7 @@ export default function Publications() {
           </Swiper>
         </section>
 
-        <section className="my-15  p-10">
+        <section className="my-15  ">
           <h2 className="text-xl">Forum: Bulgarien</h2>
           <p>
             Herausgegeben durch: Sigrun Comati, Thede Kahl, Helmut Schaller

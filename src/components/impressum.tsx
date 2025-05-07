@@ -1,6 +1,6 @@
 export default function Impressum() {
   return (
-    <>
+    <div className="text-xs md:text-base">
       <p>
         Deutsch-Bulgarische Gesellschaft zur F&ouml;rderung der Beziehungen
         zwischen Deutschland und Bulgarien
@@ -58,6 +58,6 @@ export default function Impressum() {
         Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren
         vor einer Verbraucherschlichtungsstelle teilzunehmen.
       </p>
-    </>
+    </div>
   );
 }

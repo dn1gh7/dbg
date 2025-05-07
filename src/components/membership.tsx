@@ -1,7 +1,7 @@
 export default function Membership() {
   return (
     <>
-      <section>
+      <section className="text-xs md:text-base">
         <p>
           Die Gesellschaft besteht aus ordentlichen Mitgliedern, fördernden
           Mitgliedern, Ehrenmitgliedern sowie auswärtigen korrespondierenden

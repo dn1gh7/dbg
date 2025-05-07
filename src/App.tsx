@@ -10,7 +10,7 @@ import BulgarianStudies from './components/bulgarianStudies';
 import Membership from './components/membership';
 import Events from './components/events';
 import Home from './components/home';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Impressum from './components/impressum';
 
 type TitleManagerProps = {
@@ -19,10 +19,9 @@ type TitleManagerProps = {
 
 function TitleManager({ setPageTitle }: TitleManagerProps) {
   const location = useLocation();
-
   useEffect(() => {
     const pathToTitleMap: Record<string, string> = {
-      '/': 'Startseite',
+      '/': 'Deutsch-Bulgarische Gesellschaft zur Förderung der Beziehungen zwischen Deutschland und Bulgarien e. V.',
       '/about': 'Über uns',
       '/events': 'Veranstaltungen',
       '/publications': 'Publikationen',
@@ -32,16 +31,30 @@ function TitleManager({ setPageTitle }: TitleManagerProps) {
       '/bulgarianStudies': 'Bulgaristik in Deutschland',
       '/impressum': 'Impressum',
     };
-
     const title = pathToTitleMap[location.pathname] || '';
     setPageTitle(title);
   }, [location, setPageTitle]);
-
   return null;
 }
 
+type WrapperProps = {
+  children: React.ReactNode;
+};
+
+const Wrapper: React.FC<WrapperProps> = ({ children }) => {
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    // Scroll to the top of the page when the route changes
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
+  return <>{children}</>;
+};
+
 function App() {
   const [pageTitle, setPageTitle] = useState('');
+  const [mdNavOpen, setMdNavOpen] = useState(false);
 
   const navItems = [
     { title: 'Über uns', link: 'about' },
@@ -54,23 +67,37 @@ function App() {
     { title: 'Kooperationspartner und Förderer', link: '/bulgarianStudies' },
   ];
 
+  function setNavOpen() {
+    console.log('open');
+    setMdNavOpen(!mdNavOpen);
+  }
+
   return (
     <>
       <HashRouter>
-        <NavBar navItems={navItems} />
+        <NavBar
+          navItems={navItems}
+          mdNavOpen={mdNavOpen}
+          handleCloseClick={setNavOpen}
+        />
         <TitleManager setPageTitle={setPageTitle} />
-        <ContentContainer title={pageTitle}>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="about" element={<About />} />
-            <Route path="events" element={<Events />} />
-            <Route path="publications" element={<Publications />} />
-            <Route path="links" element={<Links />} />
-            <Route path="membership" element={<Membership />} />
-            <Route path="presented" element={<Presented />} />
-            <Route path="bulgarianStudies" element={<BulgarianStudies />} />
-            <Route path="impressum" element={<Impressum />} />
-          </Routes>
+        <ContentContainer
+          handleHamburgerClick={() => setNavOpen}
+          title={pageTitle}
+        >
+          <Wrapper>
+            <Routes>
+              {/* <Route path="/" element={<Home />}></Route> */}
+              <Route path="about" element={<About />} />
+              <Route path="events" element={<Events />} />
+              <Route path="publications" element={<Publications />} />
+              <Route path="links" element={<Links />} />
+              <Route path="membership" element={<Membership />} />
+              <Route path="presented" element={<Presented />} />
+              <Route path="bulgarianStudies" element={<BulgarianStudies />} />
+              <Route path="impressum" element={<Impressum />} />
+            </Routes>
+          </Wrapper>
         </ContentContainer>
       </HashRouter>
     </>
