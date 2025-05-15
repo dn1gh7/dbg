@@ -1,6 +1,6 @@
 export default function Presented() {
   return (
-    <div className="w-50">
+    <div>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, sint
         nostrum nesciunt neque, id et vitae consequatur quibusdam iusto

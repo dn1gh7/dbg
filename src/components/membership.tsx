@@ -1,7 +1,7 @@
 export default function Membership() {
   return (
     <>
-      <section className="text-xs md:text-base">
+      <section className="body-text">
         <p>
           Die Gesellschaft besteht aus ordentlichen Mitgliedern, fördernden
           Mitgliedern, Ehrenmitgliedern sowie auswärtigen korrespondierenden
@@ -60,8 +60,8 @@ export default function Membership() {
           <span className="">Beitrittserklärung herunterladen</span>
           <svg
             className="inline ml-2"
-            width="35px"
-            height="35px"
+            width="25px"
+            height="25px"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -78,9 +78,9 @@ export default function Membership() {
         </a>
         <p className="text-gray-600">
           <h4>Bankverbindung:</h4>
-          HypoVereinsbank München <br />
-          IBAN DE78700202700659222183 <br />
-          BIC HYVEDEMMXXX <br />
+          Volksbank Darmstadt Mainz <br />
+          IBAN DE52 5519 0000 0414 7570 13 <br />
+          BIC MVBMDE55 <br />
         </p>
       </section>
     </>

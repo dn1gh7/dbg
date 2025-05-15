@@ -5,7 +5,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 15pt;
+  font-size: 16px;
 
   color-scheme: light dark;
   color: black;
@@ -30,16 +30,19 @@
   --color-cambridge: #82c09a;
 }
 
+@layer components {
+  .heading {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800;
+  }
+  .subheading {
+    @apply text-xl md:text-2xl lg:text-3xl font-semibold text-gray-600;
+  }
+  .body-text {
+    @apply text-base md:text-lg lg:text-xl text-gray-700;
+  }
+}
+
 @layer base {
-  h1 {
-    font-size: var(--text-2xl);
-  }
-  h2 {
-    font-size: var(--text-xl);
-  }
-  h3 {
-    font-size: var(--text-lg);
-  }
 }
 
 html {

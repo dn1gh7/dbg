@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router';
 export default function About() {
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col body-text">
         <p>
           Die „Deutsch-Bulgarische Gesellschaft zur Förderung der Beziehungen
           zwischen Deutschland und Bulgarien e. V.“ mit Sitz in Berlin wurde am

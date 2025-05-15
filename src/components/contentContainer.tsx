@@ -12,15 +12,14 @@ export default function ContentContainer({
   handleHamburgerClick,
 }: ContentContainerProps) {
   return (
-    <div className="md:flex-8 min-w-0">
+    <div className="w-full md:flex-8 min-w-0">
       <div className=" bg-white min-w-0">
         <div className="flex flex-row md:space-x-6   h-20 md:h-50 sticky top-0 md:static z-48">
-          <div className="border-b-10 border-[#82C09A] w-full max-sm-w-1/2 bg-[url(/images/P1080694_more_expanded.JPG)] bg-cover bg-left content-center md:text-3xl font-medium text-white">
-            {/* <div className="w-full h-45 bg-tea bg-[url(/images/P1080694.JPG),_url(/images/P1030776.JPG),_url(/images/P1030760.JPG)] [background-size:33%,33%,33%] bg-no-repeat [background-position:left,center,right]  content-center text-3xl font-medium text-white "></div> */}
-            <div className="flex flex-row content-center">
+          <div className="border-b-10 border-[#82C09A] w-full max-sm-w-1/2 bg-[url(/images/P1080694_more_expanded.JPG)] bg-cover bg-left content-center">
+            <div className="flex content-center">
               <button
                 onClick={handleHamburgerClick()}
-                className="text-black focus:outline-none ml-3 md:hidden"
+                className="text-black focus:outline-none md:ml-3 md:hidden"
               >
                 <svg
                   className="h-8 w-8"
@@ -36,7 +35,9 @@ export default function ContentContainer({
                   />
                 </svg>
               </button>
-              <span className="pl-10 ">{title}</span>
+              <div className="content-center pl-2 md:pl-20 heading text-white">
+                {title}
+              </div>
             </div>
           </div>
           <img
@@ -51,7 +52,7 @@ export default function ContentContainer({
             alt=""
           />
         </div>
-        <section className="py-6 px-1 md:px-20 text-xs md:text-base">
+        <section className="py-6 px-1 md:px-80 text-xs md:text-base">
           {children}
         </section>
       </div>

@@ -12,6 +12,7 @@ import Events from './components/events';
 import Home from './components/home';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import Impressum from './components/impressum';
+import Collaborations from './components/collaborations';
 
 type TitleManagerProps = {
   setPageTitle: (title: string) => void;
@@ -29,6 +30,7 @@ function TitleManager({ setPageTitle }: TitleManagerProps) {
       '/membership': 'Mitgliedschaft',
       '/presented': 'Vorgestellt',
       '/bulgarianStudies': 'Bulgaristik in Deutschland',
+      '/collaborations': 'Kooperationspartner und Förderer',
       '/impressum': 'Impressum',
     };
     const title = pathToTitleMap[location.pathname] || '';
@@ -64,7 +66,7 @@ function App() {
     { title: 'Mitgliedschaft', link: 'membership' },
     { title: 'Vorgestellt', link: 'presented' },
     { title: 'Bulgaristik in Deutschland', link: 'bulgarianStudies' },
-    { title: 'Kooperationspartner und Förderer', link: '/bulgarianStudies' },
+    { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
   ];
 
   function setNavOpen() {
@@ -95,6 +97,7 @@ function App() {
               <Route path="membership" element={<Membership />} />
               <Route path="presented" element={<Presented />} />
               <Route path="bulgarianStudies" element={<BulgarianStudies />} />
+              <Route path="collaborations" element={<Collaborations />} />
               <Route path="impressum" element={<Impressum />} />
             </Routes>
           </Wrapper>
