@@ -25,20 +25,26 @@
   }
 }
 
+/* --color-cambridge: #82c09a; */
+
 @theme {
   --color-visited: #551a8b;
-  --color-cambridge: #82c09a;
+  --color-cambridge: #b8ccf2;
+  --color-cambridge1: #82c09a;
+  --color-periwinkleh: #98a5bf;
+  --color-periwinkle: #b8ccf2;
+  --color-orangeone: #d64933;
 }
 
 @layer components {
   .heading {
-    @apply text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800;
+    @apply text-base sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800;
   }
   .subheading {
-    @apply text-xl md:text-2xl lg:text-3xl font-semibold text-gray-600;
+    @apply text-base mb-3 md:text-lg lg:text-xl font-semibold text-gray-600;
   }
   .body-text {
-    @apply text-base md:text-lg lg:text-xl text-gray-700;
+    @apply text-base md:text-lg lg:text-2xl text-gray-800;
   }
 }
 

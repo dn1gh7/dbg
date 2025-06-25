@@ -40,7 +40,9 @@ export default function Membership() {
           von der Beitragszahlung befreit.
         </p>
 
-        <h3>Mitgliedsbeitrag</h3>
+        <h3 className="subheading bg-cambridge p-1 text-white">
+          Mitgliedsbeitrag
+        </h3>
         <p className="">
           Der Mitgliedsbeitrag beträgt jährlich 50,00 Euro für Einzelmitglieder,
           5,00 Euro für Studierende (mit entsprechendem Nachweis), für Ehepaare
@@ -51,13 +53,18 @@ export default function Membership() {
           steuerbegünstigte Spende an. Er ist damit als Sonderausgabe
           unbeschränkt abzugsfähig.
         </p>
+        <p>
+          Die „Deutsch-Bulgarische Gesellschaft e.V.“ stellt ihren Mitgliedern
+          kostenlos alle ihre Veröffentlichungen zur Verfügung.
+        </p>
 
         <a
-          className="bg-cambridge rounded-sm font-semibold hover:bg-[#52A371] transition:bg transition delay-50 duration-200 ease-in text-white inline-block p-3 my-5"
-          href="/dbg/Beitrittserklaerung.pdf"
+          className="bg-cambridge rounded-sm font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white inline-block p-3 my-5"
+          href="/Beitrittserklaerung.pdf"
           target="_blank"
         >
-          <span className="">Beitrittserklärung herunterladen</span>
+          <span className="">Beitrittserklärung</span>
+          <span className="hidden sm:inline"> herunterladen</span>
           <svg
             className="inline ml-2"
             width="25px"
@@ -76,10 +83,10 @@ export default function Membership() {
             />
           </svg>
         </a>
-        <p className="text-gray-600">
+        <p className=" ">
           <h4>Bankverbindung:</h4>
           Volksbank Darmstadt Mainz <br />
-          IBAN DE52 5519 0000 0414 7570 13 <br />
+          IBAN <br className="sm:hidden" /> DE52 5519 0000 0414 7570 13 <br />
           BIC MVBMDE55 <br />
         </p>
       </section>

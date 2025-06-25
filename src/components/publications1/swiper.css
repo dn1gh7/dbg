@@ -5,3 +5,41 @@ swiper-container {
 .swiper {
   z-index: 0;
 }
+
+.swiper-slide {
+  margin-right: 0;
+}
+
+.swiper-pagination {
+  position: static !important;
+  text-align: center !important;
+}
+
+/* .swiper-pagination-bibliothek,
+.swiper-pagination-bulgarica {
+  position: static !important;
+  text-align: center !important;
+} */
+
+/* .swiper-button-prev1,
+.swiper-button-next1 {
+  background-color: #b02930;
+} */
+
+/* .swiper-pagination-bibliothek .swiper-pagination-bullet-active {
+  background-color: #b02930;
+}
+
+.swiper-pagination-bulgarica .swiper-pagination-bullet-active {
+  background-color: #952b5c;
+}
+
+.swiper-button-next-bibliothek,
+.swiper-button-prev-bibliothek {
+  background-color: #b02930;
+}
+
+.swiper-button-next-bulgarica,
+.swiper-button-prev-bulgarica {
+  background-color: #952b5c;
+} */

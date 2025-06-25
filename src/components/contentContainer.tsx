@@ -1,28 +1,29 @@
-import { BASE_URL } from '../globlas';
-
 interface ContentContainerProps {
   children: React.ReactNode;
-  handleHamburgerClick(): () => void;
+
+  handleHamburgerClick: () => void;
   title?: string;
 }
 
 export default function ContentContainer({
   children,
   title,
+
   handleHamburgerClick,
 }: ContentContainerProps) {
   return (
     <div className="w-full md:flex-8 min-w-0">
-      <div className=" bg-white min-w-0">
-        <div className="flex flex-row md:space-x-6   h-20 md:h-50 sticky top-0 md:static z-48">
-          <div className="border-b-10 border-[#82C09A] w-full max-sm-w-1/2 bg-[url(/images/P1080694_more_expanded.JPG)] bg-cover bg-left content-center">
+      {/* h-full */}
+      <div className=" bg-white min-w-0 ">
+        <div className="flex flex-row md:space-x-6   h-15 md:h-30 sticky top-0 md:static z-48">
+          <div className="border-b-10 border-cambridge w-full max-sm-w-1/2 bg-[url(/images/P1080694_more_expanded.JPG)] bg-cover bg-left content-center">
             <div className="flex content-center">
               <button
-                onClick={handleHamburgerClick()}
+                onClick={() => handleHamburgerClick()}
                 className="text-black focus:outline-none md:ml-3 md:hidden"
               >
                 <svg
-                  className="h-8 w-8"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="#ffffff"
                   strokeWidth="2"
@@ -41,18 +42,20 @@ export default function ContentContainer({
             </div>
           </div>
           <img
-            src={BASE_URL + '/Cyril-methodius-small.jpg'}
-            className="w-1/4 border-b-10 border-[#82C09A] object-cover object-top max-sm:hidden"
+            src={'/Cyril-methodius-small.jpg'}
+            className="w-1/4 border-b-10 border-cambridge object-cover object-top max-sm:hidden"
             alt=""
           />
           <img
-            onClick={() => console.log(BASE_URL)}
-            src={BASE_URL + '/images/P1030760.jpg'}
-            className="w-1/4 border-b-10 border-[#82C09A] object-cover max-sm:hidden"
+            src={'/images/P1030760.jpg'}
+            className="w-1/4 border-b-10 border-cambridge object-cover max-sm:hidden"
             alt=""
           />
         </div>
-        <section className="py-6 px-1 md:px-80 text-xs md:text-base">
+        <section
+          onClick={() => console.log('moin')}
+          className={`py-3 md:py-6 px-0.5 sm:px-10 md:px-15 lg:px-20 xl:px-50 body-text h-full`}
+        >
           {children}
         </section>
       </div>

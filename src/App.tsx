@@ -1,28 +1,32 @@
 import './App.css';
 import { Routes, Route, HashRouter, useLocation } from 'react-router';
+import { useEffect, useLayoutEffect, useState } from 'react';
+
+import Home from './components/home';
 import About from './components/about';
-import ContentContainer from './components/contentContainer';
-import NavBar from './components/navBar';
-import Links from './components/links/links';
+import Events from './components/events';
+import EventDetail from './components/eventDetail';
 import Publications from './components/publications1/publications';
+import Links from './components/links/links';
+import Membership from './components/membership';
 import Presented from './components/presented';
 import BulgarianStudies from './components/bulgarianStudies';
-import Membership from './components/membership';
-import Events from './components/events';
-import Home from './components/home';
-import { useEffect, useLayoutEffect, useState } from 'react';
-import Impressum from './components/impressum';
 import Collaborations from './components/collaborations';
+import Impressum from './components/impressum';
 
-type TitleManagerProps = {
+import NavBar from './components/navBar';
+import ContentContainer from './components/contentContainer';
+
+const TitleManager = ({
+  setPageTitle,
+}: {
   setPageTitle: (title: string) => void;
-};
-
-function TitleManager({ setPageTitle }: TitleManagerProps) {
+}) => {
   const location = useLocation();
+
   useEffect(() => {
-    const pathToTitleMap: Record<string, string> = {
-      '/': 'Deutsch-Bulgarische Gesellschaft zur Förderung der Beziehungen zwischen Deutschland und Bulgarien e. V.',
+    const pathToTitle: Record<string, string> = {
+      '/': 'DBG',
       '/about': 'Über uns',
       '/events': 'Veranstaltungen',
       '/publications': 'Publikationen',
@@ -33,21 +37,17 @@ function TitleManager({ setPageTitle }: TitleManagerProps) {
       '/collaborations': 'Kooperationspartner und Förderer',
       '/impressum': 'Impressum',
     };
-    const title = pathToTitleMap[location.pathname] || '';
-    setPageTitle(title);
-  }, [location, setPageTitle]);
-  return null;
-}
 
-type WrapperProps = {
-  children: React.ReactNode;
+    setPageTitle(pathToTitle[location.pathname] || '');
+  }, [location, setPageTitle]);
+
+  return null;
 };
 
-const Wrapper: React.FC<WrapperProps> = ({ children }) => {
+const ScrollToTop = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
   useLayoutEffect(() => {
-    // Scroll to the top of the page when the route changes
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [location.pathname]);
 
@@ -56,7 +56,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
 
 function App() {
   const [pageTitle, setPageTitle] = useState('');
-  const [mdNavOpen, setMdNavOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const navItems = [
     { title: 'Über uns', link: 'about' },
@@ -69,41 +69,53 @@ function App() {
     { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
   ];
 
-  function setNavOpen() {
-    console.log('open');
-    setMdNavOpen(!mdNavOpen);
-  }
+  const toggleNav = () => setIsNavOpen((prev) => !prev);
+  const closeNav = () => setIsNavOpen(false);
+
+  // Lock body scroll when nav is open
+  useEffect(() => {
+    const overflowValue = isNavOpen ? 'clip' : '';
+    document.documentElement.style.overflow = overflowValue;
+    document.body.style.overflow = overflowValue;
+  }, [isNavOpen]);
+
+  // Auto-close nav on resize above md (768px)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        closeNav();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <>
-      <HashRouter>
-        <NavBar
-          navItems={navItems}
-          mdNavOpen={mdNavOpen}
-          handleCloseClick={setNavOpen}
-        />
-        <TitleManager setPageTitle={setPageTitle} />
-        <ContentContainer
-          handleHamburgerClick={() => setNavOpen}
-          title={pageTitle}
-        >
-          <Wrapper>
-            <Routes>
-              {/* <Route path="/" element={<Home />}></Route> */}
-              <Route path="about" element={<About />} />
-              <Route path="events" element={<Events />} />
-              <Route path="publications" element={<Publications />} />
-              <Route path="links" element={<Links />} />
-              <Route path="membership" element={<Membership />} />
-              <Route path="presented" element={<Presented />} />
-              <Route path="bulgarianStudies" element={<BulgarianStudies />} />
-              <Route path="collaborations" element={<Collaborations />} />
-              <Route path="impressum" element={<Impressum />} />
-            </Routes>
-          </Wrapper>
-        </ContentContainer>
-      </HashRouter>
-    </>
+    <HashRouter>
+      <NavBar
+        navItems={navItems}
+        mdNavOpen={isNavOpen}
+        handleCloseClick={closeNav}
+      />
+      <TitleManager setPageTitle={setPageTitle} />
+      <ContentContainer handleHamburgerClick={toggleNav} title={pageTitle}>
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="events" element={<Events />} />
+            <Route path="events/:eventId" element={<EventDetail />} />
+            <Route path="publications" element={<Publications />} />
+            <Route path="links" element={<Links />} />
+            <Route path="membership" element={<Membership />} />
+            <Route path="presented" element={<Presented />} />
+            <Route path="bulgarianStudies" element={<BulgarianStudies />} />
+            <Route path="collaborations" element={<Collaborations />} />
+            <Route path="impressum" element={<Impressum />} />
+          </Routes>
+        </ScrollToTop>
+      </ContentContainer>
+    </HashRouter>
   );
 }
 

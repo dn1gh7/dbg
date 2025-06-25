@@ -1,6 +1,6 @@
 export default function Impressum() {
   return (
-    <div className="text-xs md:text-base">
+    <div className="">
       <p>
         Deutsch-Bulgarische Gesellschaft zur F&ouml;rderung der Beziehungen
         zwischen Deutschland und Bulgarien

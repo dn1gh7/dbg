@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import svg from '../assets/logo_rund.svg';
+// import { useState } from 'react';
+// import svg from '../assets/logo_rund.svg';
 import { Link, Outlet } from 'react-router';
 
 interface NavItem {
@@ -18,7 +18,6 @@ export default function NavBar({
   mdNavOpen,
   handleCloseClick,
 }: NavBarProps) {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       {/* Mobile Hamburger Button */}
@@ -47,49 +46,56 @@ export default function NavBar({
       <nav
         className={`fixed top-0 z-49 h-screen bg-white shadow-md transform
         ${mdNavOpen ? 'translate-x-0' : '-translate-x-full'} 
-        transition-transform duration-300 ease-in-out md:translate-x-0 md:flex md:w-70 md:sticky md:flex-col md:px-3 text-xs md:font-medium md:text-lg`}
+        transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col justify-between  w-40 md:w-70 md:sticky  px-1.5 md:px-3 text-xs md:font-medium md:text-lg overflow-y-auto`}
       >
-        <div className="relative">
-          <button
-            onClick={handleCloseClick}
-            className="text-black focus:outline-none md:hidden absolute top-0 right-0"
+        <button
+          onClick={handleCloseClick}
+          className="text-black focus:outline-none md:hidden absolute top-0 right-0 p-1"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke={'#000000'}
+            strokeWidth="2"
+            viewBox="0 0 24 24"
           >
-            <svg
-              className="h-8 w-8"
-              fill="none"
-              stroke={'#000000'}
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={'M6 18L18 6M6 6l12 12'}
-              />
-            </svg>
-          </button>
-          <div className="md:p-4 w-full"></div>
-          {/* <Link to="/">
-            <img className="h-20 mx-auto" src={svg} alt="Logo" />
-          </Link> */}
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d={'M6 18L18 6M6 6l12 12'}
+            />
+          </svg>
+        </button>
+
+        <div className="mt-2 md:mt-15">
+          <Link to="/" className="">
+            <img
+              className="w-20 sm:w-30 md:w-50 mx-auto "
+              src={'logo_rund.svg'}
+              alt="Logo"
+            />
+          </Link>
+
+          <ul className="mt-2 md:mt-20">
+            {navItems.map((item, i) => (
+              <li key={i}>
+                <Link
+                  className=" block p-0.5 py-1 body-text underline decoration-cambridge md:decoration-0 sm:p-2 md:p-3  hover:bg-cambridge hover:text-white"
+                  to={item.link}
+                  onClick={handleCloseClick} // Close menu on click
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <ul className="mt-7">
-          {navItems.map((item, i) => (
-            <li key={i}>
-              <Link
-                className="block p-1  md:p-3  hover:bg-[#82C09A] hover:text-white"
-                to={item.link}
-                onClick={handleCloseClick} // Close menu on click
-              >
-                {item.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-auto mb-6 text-center underline decoration-cambridge decoration-2">
-          <Link to={'impressum'} onClick={() => setIsOpen(false)}>
+        <div className="mb-2 text-center underline decoration-cambridge decoration-2">
+          {/* <Link to={'impressum'} onClick={() => setIsOpen(false)}>
+              Impressum
+            </Link> */}
+          <Link to={'impressum'} onClick={handleCloseClick}>
             Impressum
           </Link>
         </div>
