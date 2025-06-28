@@ -52,3 +52,13 @@ export const EVENTS = [
     startDate: new Date(Date.UTC(2024, 10, 9, 3, 0, 0)),
   },
 ];
+
+export const PRESIDIUM = [
+  { title: 'Präsidentin', name: 'Dr. S. Comati' },
+  { title: 'Vizepräsident', name: 'Prof. Dr. R. Krauß' },
+  { title: 'Geschäftsführerin', name: 'S. Lefèvre' },
+  { name: 'Prof. Dr. Dr.h.c. Th. Kahl' },
+  { name: 'Priv.-Doz. Dr. M. Henzelmann' },
+  { name: 'Prof. Dr. N. Kühn-Velten' },
+  { title: 'Ehrenpräsident', name: 'Prof. Dr. Dr.h.c. H. Schaller' },
+];

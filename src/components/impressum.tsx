@@ -26,6 +26,8 @@ export default function Impressum() {
         Dr. Sigrun Comati
         <br />
         Prof. Dr. Raiko Krau&szlig;
+        <br />
+        Sabine Lef&egrave;vre
       </p>
 
       <h2>Kontakt</h2>

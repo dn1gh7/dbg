@@ -1,10 +1,11 @@
 import { Link, Outlet } from 'react-router';
+import { PRESIDIUM } from '../globlas';
 
 export default function About() {
   return (
     <>
       <div className="h-full flex flex-col body-text justify-between">
-        <div className="flex flex-2 flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <p>
             Die „Deutsch-Bulgarische Gesellschaft zur Förderung der Beziehungen
             zwischen Deutschland und Bulgarien e. V.“ mit Sitz in Berlin wurde
@@ -32,6 +33,18 @@ export default function About() {
             Firmen können Mitglied werden.
           </p>
 
+          <div className="flex flex-2 justify-center items-center bg-[url(/images/flower.JPG)] bg-cover bg-bottom min-h-[400px]">
+            <Link
+              className="self-center w-fit text-center rounded-md  p-3 bg-cambridge font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white"
+              to="/membership"
+            >
+              <span>Unterstützen auch Sie unsere Arbeit </span>
+              <span className="hidden xl:inline">
+                und werden Sie Mitglied der Deutsch-Bulgarischen Gesellschaft
+              </span>
+            </Link>
+          </div>
+
           <p>
             Die Gesellschaft versteht sich als Mittlerin auch im Sinne der
             Ausgestaltung eines erweiterten Europa und eines anzustrebenden
@@ -53,16 +66,26 @@ export default function About() {
             erzielen.
           </p>
         </div>
-        <div className="flex flex-2 justify-center items-center bg-[url(/images/flower.JPG)] bg-cover bg-bottom min-h-[400px]">
-          <Link
-            className="self-center w-30 md:w-fit text-center rounded-md  p-3 bg-cambridge font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white"
-            to="/membership"
-          >
-            <span>Unterstützen auch Sie unsere Arbeit </span>
-            <span className="hidden xl:inline">
-              und werden Sie Mitglied der Deutsch-Bulgarischen Gesellschaft
-            </span>
-          </Link>
+
+        <div>
+          <h3 className="text-center subheading">Präsidium</h3>
+          <ul className="flex flex-col md:flex-row w-full justify-between flex-wrap ">
+            {PRESIDIUM.map(({ title, name }, i) => (
+              <li key={i} className="flex flex-col items-center my-2">
+                {title ? (
+                  <>
+                    <div className="text-sm text-gray-500">{title}</div>
+                    <div className="">{name}</div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-sm">&nbsp;</div>
+                    <div>{name}</div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <Outlet />

@@ -12,10 +12,10 @@ export default function ContentContainer({
   handleHamburgerClick,
 }: ContentContainerProps) {
   return (
-    <div className="w-full md:flex-8 min-w-0">
+    <div className="w-full md:flex-8 min-w-0 md:pl-70">
       {/* h-full */}
-      <div className=" bg-white min-w-0 ">
-        <div className="flex flex-row md:space-x-6   h-15 md:h-30 sticky top-0 md:static z-48">
+      <div className=" bg-white min-w-0  ">
+        <div className="flex flex-row h-15 md:h-30 md:space-x-6    sticky top-0 md:static z-48">
           <div className="border-b-10 border-cambridge w-full max-sm-w-1/2 bg-[url(/images/P1080694_more_expanded.JPG)] bg-cover bg-left content-center">
             <div className="flex content-center">
               <button
@@ -36,7 +36,7 @@ export default function ContentContainer({
                   />
                 </svg>
               </button>
-              <div className="content-center pl-2 md:pl-20 heading text-white">
+              <div className="content-center pl-2 md:pl-20 heading text-white break-all">
                 {title}
               </div>
             </div>
@@ -52,9 +52,10 @@ export default function ContentContainer({
             alt=""
           />
         </div>
+
         <section
           onClick={() => console.log('moin')}
-          className={`py-3 md:py-6 px-0.5 sm:px-10 md:px-15 lg:px-20 xl:px-50 body-text h-full`}
+          className={` py-3 md:py-6 px-0.5 sm:px-10 md:px-15 lg:px-20 xl:px-50 body-text `}
         >
           {children}
         </section>

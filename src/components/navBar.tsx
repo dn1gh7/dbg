@@ -44,9 +44,9 @@ export default function NavBar({
 
       {/* Sidebar for Desktop & Responsive Drawer */}
       <nav
-        className={`fixed top-0 z-49 h-screen bg-white shadow-md transform
+        className={`fixed top-0 left-0 z-49 h-screen bg-white shadow-md transform
         ${mdNavOpen ? 'translate-x-0' : '-translate-x-full'} 
-        transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col justify-between  w-40 md:w-70 md:sticky  px-1.5 md:px-3 text-xs md:font-medium md:text-lg overflow-y-auto`}
+        transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col justify-between  w-40 md:w-70   px-1.5 md:px-3 text-xs md:font-medium md:text-lg overflow-y-auto`}
       >
         <button
           onClick={handleCloseClick}
