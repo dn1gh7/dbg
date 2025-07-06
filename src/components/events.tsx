@@ -38,7 +38,7 @@ export default function Events() {
         {aktuell.map((event, index) => (
           <Link to={`/events/${event.id}`} key={index}>
             <div key={index}>
-              <div className="flex flex-col border-[#2e2f2f] hover:outline-solid hover:outline-2 hover:outline-[#52A371] outline-offset-2 border-2 rounded-md h-55 md:w-75">
+              <div className="flex flex-col border-[#2e2f2f] hover:outline-solid hover:outline-2 hover:outline-[#52A371] outline-offset-2 border-2 rounded-md h-55 md:w-75 overflow-hidden">
                 <img
                   src={'/Cyril-methodius-small.jpg'}
                   className="h-1/2 object-cover object-top"
@@ -86,7 +86,7 @@ export default function Events() {
         {archiv.map((event, index) => (
           <Link to={`/events/${event.id}`} key={index}>
             <div key={index}>
-              <div className="flex flex-col  border-[#2e2f2f] border-2 rounded-md h-35 md:h-55 ">
+              <div className="flex flex-col  border-[#2e2f2f] border-2 rounded-md h-35 md:h-55 overflow-hidden">
                 <img
                   src={'/Cyril-methodius-small.jpg'}
                   className="h-1/2 object-cover object-top"

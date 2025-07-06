@@ -79,7 +79,7 @@ export default function About() {
                   </>
                 ) : (
                   <>
-                    <div className="text-sm">&nbsp;</div>
+                    <div className="text-sm hidden md:block">&nbsp;</div>
                     <div>{name}</div>
                   </>
                 )}

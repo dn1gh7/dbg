@@ -73,10 +73,7 @@ export default function PublicationSwiper({
         >
           {publications.map((p, i) => (
             <SwiperSlide key={i} className="!flex justify-center">
-              <div
-                className="flex flex-col w-fit px-3 "
-                onClick={() => console.log('moin')}
-              >
+              <div className="px-3 " onClick={() => console.log('moin')}>
                 <img
                   className="w-full h-auto object-contain "
                   src={p.img_path}
