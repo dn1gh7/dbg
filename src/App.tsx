@@ -17,6 +17,17 @@ import Impressum from './components/impressum';
 import NavBar from './components/navBar';
 import ContentContainer from './components/contentContainer';
 
+const navItems = [
+  { title: 'Über uns', link: 'about' },
+  { title: 'Veranstaltungen', link: 'events' },
+  { title: 'Publikationen', link: 'publications' },
+  { title: 'Links', link: 'links' },
+  { title: 'Mitgliedschaft', link: 'membership' },
+  { title: 'Vorgestellt', link: 'presented' },
+  { title: 'Bulgaristik in Deutschland', link: 'bulgarianStudies' },
+  { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
+];
+
 const TitleManager = ({
   setPageTitle,
 }: {
@@ -57,17 +68,6 @@ const ScrollToTop = ({ children }: { children: React.ReactNode }) => {
 function App() {
   const [pageTitle, setPageTitle] = useState('');
   const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const navItems = [
-    { title: 'Über uns', link: 'about' },
-    { title: 'Veranstaltungen', link: 'events' },
-    { title: 'Publikationen', link: 'publications' },
-    { title: 'Links', link: 'links' },
-    { title: 'Mitgliedschaft', link: 'membership' },
-    { title: 'Vorgestellt', link: 'presented' },
-    { title: 'Bulgaristik in Deutschland', link: 'bulgarianStudies' },
-    { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
-  ];
 
   const toggleNav = () => setIsNavOpen((prev) => !prev);
   const closeNav = () => setIsNavOpen(false);
