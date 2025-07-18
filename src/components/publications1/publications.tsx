@@ -52,7 +52,7 @@ export default function Publications() {
         </section>
         <section className="my-5 md:my-15  flex flex-col">
           <div className="bg-cambridge p-2 items-center md:flex justify-between mb-3">
-            <h2 className="block md:inline font-semibold mb-2 sm:mb-0 text-white">
+            <h2 className="subheading block md:inline mb-2 sm:mb-0 text-white">
               Bulgarien Jahrbuch (seit 2017 Bulgarica)
             </h2>
             <a
