@@ -1,6 +1,6 @@
 // import { useState } from 'react';
 // import svg from '../assets/logo_rund.svg';
-import { Link, Outlet } from 'react-router';
+import { Link, Outlet, NavLink } from 'react-router';
 
 interface NavItem {
   title: string;
@@ -44,7 +44,7 @@ export default function NavBar({
 
       {/* Sidebar for Desktop & Responsive Drawer */}
       <nav
-        className={`fixed top-0 left-0 z-49 h-screen bg-white shadow-md transform
+        className={`fixed top-0 left-0 z-49 h-screen bg-white shadow-md transform 
         ${mdNavOpen ? 'translate-x-0' : '-translate-x-full'} 
         transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col justify-between  w-40 md:w-70   px-1.5 md:px-3 text-xs md:font-medium md:text-lg overflow-y-auto`}
       >
@@ -68,7 +68,7 @@ export default function NavBar({
         </button>
 
         <div className="mt-2 md:mt-15">
-          <Link to="/" className="">
+          <Link to="/">
             <img
               className="w-20 sm:w-30 md:w-50 mx-auto "
               src={'logo_rund.svg'}
@@ -76,16 +76,23 @@ export default function NavBar({
             />
           </Link>
 
-          <ul className="mt-2 md:mt-20">
+          <ul className="mt-2 md:mt-20 space-y-2">
             {navItems.map((item, i) => (
               <li key={i}>
-                <Link
-                  className=" block p-0.5 py-1 body-text underline decoration-cambridge md:decoration-0 sm:p-2 md:p-3  hover:bg-cambridge hover:text-white"
+                <NavLink
+                  // className=" block p-0.5 py-1 body-text border-l-2 sm:p-2 md:p-3  hover:bg-cambridge hover:text-white"
+                  className={({ isActive }) =>
+                    `block p-0.5 py-1 body-text border-l-4 sm:p-2 md:p-3 hover:bg-cambridge hover:text-white ${
+                      isActive
+                        ? 'border-cambridge hover:'
+                        : 'border-transparent'
+                    }`
+                  }
                   to={item.link}
                   onClick={handleCloseClick} // Close menu on click
                 >
                   {item.title}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
