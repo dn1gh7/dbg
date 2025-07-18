@@ -19,28 +19,27 @@ export default function Events() {
             alt=""
           />
           <div className="flex flex-col p-2  h-1/2 justify-between">
-            <h2 className="">{event.title}</h2>
+            <h2 className="line-clamp-2">{event.title}</h2>
             <div className="flex items-center">
-              <span>
-                {new Date(Date.UTC(2012, 11, 20, 3, 0, 0)).toLocaleDateString(
-                  'de-DE'
-                )}
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#82c09a"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12.1" cy="12.1" r="1" />
-              </svg>
-
-              <span>{event.endDate?.toLocaleDateString('de-DE')}</span>
+              <span>{event.startDate?.toLocaleDateString('de-DE')}</span>
+              {event.endDate && (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#82c09a"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12.1" cy="12.1" r="1" />
+                  </svg>
+                  <span>{event.endDate?.toLocaleDateString('de-DE')}</span>
+                </>
+              )}
             </div>
           </div>
         </div>
