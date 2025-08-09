@@ -9,10 +9,11 @@ import EventDetail from './components/eventDetail';
 import Publications from './components/publications1/publications';
 import Links from './components/links/links';
 import Membership from './components/membership';
-import Presented from './components/presented';
-import BulgarianStudies from './components/bulgarianStudies';
-import Collaborations from './components/collaborations';
+// import Presented from './components/presented';
+// import BulgarianStudies from './components/bulgarianStudies';
+// import Collaborations from './components/collaborations';
 import Impressum from './components/impressum';
+import Contact from './components/contact';
 
 import NavBar from './components/navBar';
 import ContentContainer from './components/contentContainer';
@@ -23,10 +24,14 @@ const navItems = [
   { title: 'Publikationen', link: 'publications' },
   { title: 'Links', link: 'links' },
   { title: 'Mitgliedschaft', link: 'membership' },
-  { title: 'Vorgestellt', link: 'presented' },
-  { title: 'Bulgaristik in Deutschland', link: 'bulgarianStudies' },
-  { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
+  { title: 'Kontakt', link: 'contact' },
+
+  // { title: 'Vorgestellt', link: 'presented' },
+  // { title: 'Bulgaristik in Deutschland', link: 'bulgarianStudies' },
+  // { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
 ];
+
+//TODO EMAIL ADRESSE, KONTAKT NAVITEM
 
 const TitleManager = ({
   setPageTitle,
@@ -43,9 +48,10 @@ const TitleManager = ({
       '/publications': 'Publikationen',
       '/links': 'Links',
       '/membership': 'Mitgliedschaft',
-      '/presented': 'Vorgestellt',
-      '/bulgarianStudies': 'Bulgaristik in Deutschland',
-      '/collaborations': 'Kooperationspartner und Förderer',
+      // '/presented': 'Vorgestellt',
+      // '/bulgarianStudies': 'Bulgaristik in Deutschland',
+      // '/collaborations': 'Kooperationspartner und Förderer',
+      '/contact': 'Kontakt',
       '/impressum': 'Impressum',
     };
 
@@ -108,10 +114,11 @@ function App() {
             <Route path="publications" element={<Publications />} />
             <Route path="links" element={<Links />} />
             <Route path="membership" element={<Membership />} />
-            <Route path="presented" element={<Presented />} />
+            {/* <Route path="presented" element={<Presented />} />
             <Route path="bulgarianStudies" element={<BulgarianStudies />} />
-            <Route path="collaborations" element={<Collaborations />} />
+            <Route path="collaborations" element={<Collaborations />} /> */}
             <Route path="impressum" element={<Impressum />} />
+            <Route path="contact" element={<Contact />}></Route>
           </Routes>
         </ScrollToTop>
       </ContentContainer>
