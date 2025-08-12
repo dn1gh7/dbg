@@ -36,7 +36,7 @@ export default function Impressum() {
         <br />
         Telefax: +49 (0)7071 - 295269
         <br />
-        E-Mail: dbg@galorim.com
+        E-Mail: info.dbg@atomicmail.io
       </p>
 
       <h2>Redaktionell verantwortlich</h2>
