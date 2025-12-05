@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
-import { Event } from '../globlas';
+import { SocietyEvent } from '../globlas';
 
-export const EventCard = (event: Event, index: number) => {
+export const EventCard = (event: SocietyEvent, index: number) => {
   return (
     <Link to={`/events/${event.id}`} key={index}>
       <div
