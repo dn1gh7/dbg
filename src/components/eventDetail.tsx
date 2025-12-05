@@ -19,7 +19,7 @@ export default function EventDetail() {
           <span>- {new Date(event.endDate).toLocaleDateString('de-DE')}</span>
         )}
       </p>
-      <p>{event.text}</p>
+      <p className="whitespace-pre-wrap break-words">{event.text}</p>
     </div>
   );
 }
