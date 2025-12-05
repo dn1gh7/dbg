@@ -1,4 +1,4 @@
-export type Event = {
+export type SocietyEvent = {
   id: string;
   title: string;
   text: string;
@@ -8,7 +8,7 @@ export type Event = {
   endDate?: number;
 };
 
-export const EVENTS: Event[] = [
+export const EVENTS: SocietyEvent[] = [
   {
     id: '1',
     title: 'Mitgliederreise nach Svištov und Ruse + Mitgliederversammlung',
@@ -62,6 +62,31 @@ export const EVENTS: Event[] = [
     imgPaths: [''],
     pdfPath: '',
     startDate: Date.UTC(2022, 4, 20, 3, 0, 0),
+  },
+  {
+    id: '7',
+    title: 'Ankündigung der Jahrestagung 2026 der DBG an der Universität Jena ',
+    text: `
+Ort: Friedrich - Schiller - Universität Jena, Institut für Slawistik und Kaukasusstudien, 07743 Jena, Ernst-Abbe-Platz 8
+Das Arbeitsthema der Tagung „BULGARISCHE  VOLKSKULTUR  EINST  UND  JETZT“
+wurde gemeinsam mit unserem Gastgeber, Prof. Dr. Dr. h.c. Thede Kahl, erarbeitet. Es greift folgende Schwerpunkte auf:
+- Grundlegende Forschungen zur bulgarischen Folklore (Überblick zu den wichtigsten Werken des 18. und 19. Jahrhunderts)
+- Sprach- und literaturwissenschaftliche Betrachtungen zur bulgarischen Folklore
+- Bulgarische Volkskultur und Volksmusik (inklusive moderner Bezüge) 
+- Traditionelle und aktuelle Formen
+- Wechselwirkungen mit Politik, Migration und Identität
+- Verflechtung von folkloristischer Tradition und Aberglaube
+- Farbsymbolik in der bulgarischen Folklore
+- Humor in der bulgarischen Folklore
+Es gibt mit Sicherheit noch eine ganze Reihe – auch eigener Beobachtungen –
+die in diesem Rahmen vorgetragen werden können! In den letzten Jahrzehnten
+wurden auch interkulturelle Aspekte mit eingebracht, die neue Betrachtungsweise eröffnet haben. Ein spannendes Gebiet!
+
+Beitragsmeldungen mit einer kurzen Zusammenfassung werden bis Ende Februar 2026 erbeten.
+    `,
+    imgPaths: [''],
+    pdfPath: '',
+    startDate: Date.UTC(2026, 3, 24, 3, 0, 0),
   },
 ];
 
