@@ -35,7 +35,7 @@ export default function About() {
 
           <div className="flex flex-2 justify-center items-center bg-[url(/images/flower.JPG)] bg-cover bg-bottom min-h-[400px]">
             <Link
-              className="self-center w-fit text-center rounded-md  p-3 bg-cambridge font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white"
+              className="self-center w-fit text-center rounded-md  p-3 mx-3 bg-cambridge font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white"
               to="/membership"
             >
               <span>Unterstützen auch Sie unsere Arbeit </span>
@@ -69,9 +69,12 @@ export default function About() {
 
         <div>
           <h3 className="text-center subheading">Präsidium</h3>
-          <ul className="flex flex-col md:flex-row w-full justify-between flex-wrap ">
+          <ul className="sm:grid grid-cols-3">
             {PRESIDIUM.map(({ title, name }, i) => (
-              <li key={i} className="flex flex-col items-center my-2">
+              <li
+                key={i}
+                className="flex flex-col items-center text-center p-4"
+              >
                 {title ? (
                   <>
                     <div className="text-sm text-gray-500">{title}</div>
