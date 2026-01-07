@@ -55,7 +55,7 @@ export default function ContentContainer({
 
         <section
           onClick={() => console.log('moin')}
-          className={` py-3 md:py-6 px-0.5 sm:px-10 md:px-15 lg:px-20 xl:px-50 body-text `}
+          className={` py-3 md:py-6 px-5 sm:px-10 md:px-15 lg:px-20 xl:px-50 body-text `}
         >
           {children}
         </section>

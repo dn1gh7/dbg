@@ -8,6 +8,7 @@ import PublicationSwiper from './publicationsSwiper';
 
 export interface Publication {
   title: string;
+  description?: string;
   pdf_path: string;
   pdf_path1: string;
   pdf_path2: string;

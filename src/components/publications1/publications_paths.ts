@@ -67,3 +67,16 @@ export const bibliothek = [
     img_path: '/publications/9783954771110_g.jpg',
   },
 ];
+
+export const others = [
+  {
+    title: 'Wendezeiten: Erfahrungen – Erwartungen – Erzählungen',
+    description:
+      'Die wissenschaftlichen Beiträge zur 7. Internationalen Konferenz des Bulgarischen Germanistenverbands, veranstaltet an der Universität Paisii Hilendarski in Plovdiv mit Unterstützung des DAAD, konnten 2023 unter dem Titel „Wendezeiten: Erfahrungen – Erwartungen – Erzählungen“ publiziert werden . Zu diesem Sammelband ist kürzlich in der von der Universität St. Kliment Ohridski in Sofia herausgegebenen Zeitschrift „Philologia“ eine ausführliche Rezension erschienen',
+    pdf_path:
+      'https://philologia-journal.uni-sofia.bg/bg/article/0204-8779_2025_1_47_161-168',
+    pdf_path1: '',
+    pdf_path2: '',
+    img_path: '/publications/0204-8779_2025_1_47_cover.jpg',
+  },
+];
