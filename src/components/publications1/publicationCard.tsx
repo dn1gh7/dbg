@@ -1,4 +1,3 @@
-import React from 'react';
 import { Publication } from './publications';
 
 type PublicationCardProps = {
