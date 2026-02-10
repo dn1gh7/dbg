@@ -2,22 +2,20 @@ export default function Impressum() {
   return (
     <div className="">
       <p>
-        Deutsch-Bulgarische Gesellschaft zur F&ouml;rderung der Beziehungen
-        zwischen Deutschland und Bulgarien
+        Deutsch-Bulgarische Gesellschaft zur Förderung der Beziehungen zwischen
+        Deutschland und Bulgarien e. V.
         <br />
-        Burgsteige 11
+        c/o Sabine Lefèvre
         <br />
-        Schloss Hohent&uuml;bingen, Institut f&uuml;r Ur- und
-        Fr&uuml;hgeschichte und Arch&auml;ologie des Mittelalters der Eberhard
-        Karls Universit&auml;t T&uuml;bingen
+        Rießerseestr. 5
         <br />
-        72070 T&uuml;bingen
+        12527 Berlin
       </p>
 
       <p>
         Vereinsregister: VR 17210
         <br />
-        Registergericht: Amtsgericht Charlottenburg
+        Registergericht: Amtsgericht Berlin-Charlottenburg
       </p>
 
       <p>

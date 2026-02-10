@@ -52,6 +52,19 @@ export default function Contact() {
           Raiko Krauß @ Universität Tübingen
         </a>
       </p>
+
+      <strong>Geschäftsführerin</strong>
+      <p>Sabine Lefèvre</p>
+      <p>Rießerseestr. 5</p>
+      <p>12527 Berlin</p>
+      <p>
+        <a className=" " href="">
+          <Mail className="inline" />
+          <span className="underline ml-2 hover:bg-cambridge visited:text-visited">
+            sabine.lefevre@hu-berlin.de
+          </span>
+        </a>
+      </p>
     </>
   );
 }

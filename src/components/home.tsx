@@ -38,6 +38,11 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-5 gap-4  py-4">
         <img
           className="border-black border-1"
+          src="/publications/bulgarica_7.jpg"
+          alt=""
+        />
+        <img
+          className="border-black border-1"
           src="/publications/9783954771769_g.jpg"
           alt=""
         />
