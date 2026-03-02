@@ -20,6 +20,15 @@ export default function EventDetail() {
         )}
       </p>
       <p className="whitespace-pre-wrap break-words">{event.text}</p>
+      {event.pdfPath && (
+        <a
+          className="bg-cambridge rounded-sm font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white inline-block p-3 my-5"
+          href={event.pdfPath}
+          target="_blank"
+        >
+          <span className="">Einladung herunterladen</span>
+        </a>
+      )}
     </div>
   );
 }

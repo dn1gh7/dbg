@@ -88,6 +88,25 @@ Beitragsmeldungen mit einer kurzen Zusammenfassung werden bis Ende Februar 2026 
     pdfPath: '',
     startDate: Date.UTC(2026, 3, 24, 3, 0, 0),
   },
+  {
+    id: '8',
+    title:
+      'Expertengespräch: Der Berliner Kongress von 1878 und seine Auswirkungen bis heute',
+    text: `
+Verehrte Mitglieder und Freunde des Deutsch-Bulgarischen Forums,
+weshalb führt Russland seinen imperialen Krieg gegen die Ukraine sowie auch hybrid gegen Europa und die westliche Weltordnung?
+Welche Politikoptionen haben die Europäer
+in dieser Konfrontation? Wodurch werden deutsche Gestaltungsspielräume bestimmt oder
+eingeengt? Welche Gesichtspunkte beeinflussen dabei das Denken unserer Partner in
+Ost- und Südosteuropa?
+Wesentliche Weichen wurden schon vor langer Zeit in Berlin gestellt und spielen weiterhin
+entscheidende Rollen.
+Diese Fragen beleuchten wir am 19. März um 17h00 bei unserem Expertengespräch.
+    `,
+    imgPaths: [''],
+    pdfPath: '/events/DBF_Einladung_Berliner_Kongress.pdf',
+    startDate: Date.UTC(2026, 2, 19, 3, 0, 0),
+  },
 ];
 
 export const PRESIDIUM = [

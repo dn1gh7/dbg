@@ -38,9 +38,16 @@ export const bulgarica = [
   {
     title: 'Bulgarica 6',
     pdf_path: '',
-    pdf_path1: '',
-    pdf_path2: '',
+    pdf_path1: '/publications/Bulgarica6-Inhalt.pdf',
+    pdf_path2: '/publications/Bulgarica6-Info.pdf',
     img_path: '/publications/9783954771769_g.jpg',
+  },
+  {
+    title: 'Bulgarica 7',
+    pdf_path: '',
+    pdf_path1: '/publications/Bulgarica7-Inhalt.pdf',
+    pdf_path2: '/publications/Bulgarica7-Info.pdf',
+    img_path: '/publications/bulgarica_7.jpg',
   },
 ];
 

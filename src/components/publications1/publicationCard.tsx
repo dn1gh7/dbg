@@ -6,7 +6,7 @@ type PublicationCardProps = {
 
 export default function PublicationCard({ publication }: PublicationCardProps) {
   return (
-    <div className="px-3 " onClick={() => console.log('moin')}>
+    <div className="px-3 ">
       <img
         className="w-full h-auto object-contain border-black border-1"
         src={publication.img_path}
