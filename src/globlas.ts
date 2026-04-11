@@ -3,7 +3,8 @@ export type SocietyEvent = {
   title: string;
   text: string;
   imgPaths: string[];
-  pdfPath: string;
+  invitePdfPath: string;
+  programPdfPath: string;
   startDate: number;
   endDate?: number;
 };
@@ -14,7 +15,8 @@ export const EVENTS: SocietyEvent[] = [
     title: 'Mitgliederreise nach Svištov und Ruse + Mitgliederversammlung',
     text: '',
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath: '',
     startDate: Date.UTC(2023, 9, 15, 3, 0, 0),
     endDate: Date.UTC(2023, 9, 19, 3, 0, 0),
   },
@@ -23,7 +25,8 @@ export const EVENTS: SocietyEvent[] = [
     title: 'Jahressymposium und Mitgliederversammlung ',
     text: '',
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath: '',
     startDate: Date.UTC(2024, 3, 5, 3, 0, 0),
     endDate: Date.UTC(2024, 3, 6, 3, 0, 0),
   },
@@ -32,7 +35,8 @@ export const EVENTS: SocietyEvent[] = [
     title: '9. Deutsch-Bulgarischer Geschichtstag',
     text: 'Am 9. November 2024 fand auf Schloss Heiligenberg in Seeheim-Jugenheim auf Einladung des Deutsch-Bulgarischen Geschichtsvereins Pamet in Zusammenarbeit mit der Deutsch-Bulgarischen Elterninitiative Jan Bibijan und der Deutsch-Bulgarischen Gesellschaft zur Förderung der Beziehungen zwischen Deutschland und Bulgarien e.V. der 9. Deutsch-Bulgarische Geschichtstag statt. Das reichhaltige Programm versprach historische und gegenwartsbezogene brisante Beiträge. Teilnehmende aus Bulgarien, Tschechien, Österreich und Deutschland waren der Einladung gefolgt. Ausführlichere Informationen zur Veranstaltung finden Sie im Bericht zum 9. Deutsch-Bulgarischen Geschichtstag.',
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath: '',
     startDate: Date.UTC(2024, 10, 9, 3, 0, 0),
   },
   {
@@ -41,7 +45,8 @@ export const EVENTS: SocietyEvent[] = [
       'Südosteuropa-Abend zum Thema Die Ära Battenberg (1879-1886) und ihre Verortung im heutigen kollektiven Gedächtnis Bulgariens',
     text: '',
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath: '',
     startDate: Date.UTC(2023, 5, 28, 3, 0, 0),
   },
   {
@@ -50,7 +55,8 @@ export const EVENTS: SocietyEvent[] = [
       'Jahressymposium zum Thema Historische Traditionen der deutsch-bulgarischen Kultur- und Wissenschaftskooperation und ihre gegenwärtigen Herausforderungen + Mitgliederversammlung',
     text: '',
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath: '',
     startDate: Date.UTC(2023, 3, 21, 3, 0, 0),
     endDate: Date.UTC(2023, 3, 22, 3, 0, 0),
   },
@@ -60,7 +66,8 @@ export const EVENTS: SocietyEvent[] = [
       'Jahressymposium zum Thema Die Donau als wirtschaftliche, kulturhistorische und politische Verbindungsader zwischen Mittel- und Südosteuropa in Vergangenheit und Gegenwart + Mitgliederversammlung',
     text: '',
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath: '',
     startDate: Date.UTC(2022, 4, 20, 3, 0, 0),
   },
   {
@@ -85,7 +92,9 @@ wurden auch interkulturelle Aspekte mit eingebracht, die neue Betrachtungsweise 
 Beitragsmeldungen mit einer kurzen Zusammenfassung werden bis Ende Februar 2026 erbeten.
     `,
     imgPaths: [''],
-    pdfPath: '',
+    invitePdfPath: '',
+    programPdfPath:
+      '/events/DBG-Tagungsprogramm 24.4.2026 - Universität Jena.pdf',
     startDate: Date.UTC(2026, 3, 24, 3, 0, 0),
   },
   {
@@ -104,8 +113,25 @@ entscheidende Rollen.
 Diese Fragen beleuchten wir am 19. März um 17h00 bei unserem Expertengespräch.
     `,
     imgPaths: [''],
-    pdfPath: '/events/DBF_Einladung_Berliner_Kongress.pdf',
+    invitePdfPath: '/events/DBF_Einladung_Berliner_Kongress.pdf',
+    programPdfPath: '',
     startDate: Date.UTC(2026, 2, 19, 3, 0, 0),
+  },
+  {
+    id: '9',
+    title: 'Einladung zur Mitgliederversammlung',
+    text: `
+Sehr geehrte Mitglieder, 
+zu unserer Mitgliederversammlung 2026 möchte ich Sie hiermit herzlich im Namen des Präsidiums der DBG einladen. 
+
+Ort: 07743 Jena, Haus auf der Mauer, Johannisplatz 26 
+Zeit: Samstag, den 25.April 2026, 10:00 Uhr
+    `,
+    imgPaths: [''],
+    invitePdfPath:
+      '/events/Einladung zur Mitgliederversammlung der DBG 25.4.2026 Universität Jena.pdf',
+    programPdfPath: '',
+    startDate: Date.UTC(2026, 3, 25, 3, 0, 0),
   },
 ];
 
