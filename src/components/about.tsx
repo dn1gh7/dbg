@@ -1,7 +1,8 @@
 import { Link, Outlet } from 'react-router';
-import { PRESIDIUM } from '../globlas';
+import { useCmsPresidium } from '../hooks/useCms';
 
 export default function About() {
+  const { data: presidium } = useCmsPresidium();
   return (
     <>
       <div className="h-full flex flex-col body-text justify-between">
@@ -70,7 +71,7 @@ export default function About() {
         <div>
           <h3 className="text-center subheading">Präsidium</h3>
           <ul className="sm:grid grid-cols-3">
-            {PRESIDIUM.map(({ title, name }, i) => (
+            {presidium.map(({ title, name }, i) => (
               <li
                 key={i}
                 className="flex flex-col items-center text-center p-4"

@@ -1,9 +1,8 @@
-import { bulgarica, bibliothek } from './publications_paths';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 import PublicationSwiper from './publicationsSwiper';
+import { useCmsPublicationsBibliothek, useCmsPublicationsBulgarica } from '../../hooks/useCms';
 // import 'swiper/css/pagination';
 
 export interface Publication {
@@ -16,6 +15,9 @@ export interface Publication {
 }
 
 export default function Publications() {
+  const { data: bibliothek } = useCmsPublicationsBibliothek();
+  const { data: bulgarica } = useCmsPublicationsBulgarica();
+
   return (
     <>
       <div className="body-text min-w-0 w-full">

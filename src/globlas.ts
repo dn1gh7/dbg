@@ -7,9 +7,16 @@ export type SocietyEvent = {
   programPdfPath: string;
   startDate: number;
   endDate?: number;
+  /** Optional hero/thumbnail for cards (Strapi media or absolute URL). */
+  cardImageUrl?: string;
 };
 
-export const EVENTS: SocietyEvent[] = [
+export type PresidiumMember = {
+  title?: string;
+  name: string;
+};
+
+export const STATIC_EVENTS: SocietyEvent[] = [
   {
     id: '1',
     title: 'Mitgliederreise nach Svištov und Ruse + Mitgliederversammlung',
@@ -135,7 +142,7 @@ Zeit: Samstag, den 25.April 2026, 10:00 Uhr
   },
 ];
 
-export const PRESIDIUM = [
+export const STATIC_PRESIDIUM: PresidiumMember[] = [
   { title: 'Präsidentin', name: 'Dr. S. Comati' },
   { title: 'Vizepräsident', name: 'Prof. Dr. R. Krauß' },
   { title: 'Geschäftsführerin', name: 'S. Lefèvre' },
@@ -144,3 +151,6 @@ export const PRESIDIUM = [
   { name: 'Prof. Dr. N. Kühn-Velten' },
   { title: 'Ehrenpräsident', name: 'Prof. Dr. Dr.h.c. H. Schaller' },
 ];
+
+export const EVENTS = STATIC_EVENTS;
+export const PRESIDIUM = STATIC_PRESIDIUM;

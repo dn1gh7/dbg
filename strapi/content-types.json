@@ -1,0 +1,73 @@
+{
+  "description": "Create these Collection Types in Strapi (Content-Type Builder). Use these API IDs / field names so the Vite app maps them without code changes.",
+  "types": [
+    {
+      "apiId": "event",
+      "displayName": "Event",
+      "fields": [
+        { "name": "title", "type": "Text" },
+        { "name": "text", "type": "Long text" },
+        { "name": "startDate", "type": "DateTime" },
+        { "name": "endDate", "type": "DateTime", "required": false },
+        { "name": "cardImage", "type": "Media (single)", "required": false },
+        { "name": "images", "type": "Media (multiple)", "required": false },
+        { "name": "invitePdf", "type": "Media (single)", "required": false },
+        { "name": "programPdf", "type": "Media (single)", "required": false }
+      ],
+      "permissions": "Public: find, findOne"
+    },
+    {
+      "apiId": "presidium-member",
+      "displayName": "Presidium Member",
+      "fields": [
+        { "name": "roleTitle", "type": "Text", "required": false },
+        { "name": "name", "type": "Text" },
+        { "name": "sortOrder", "type": "Number (integer)", "default": 0 }
+      ],
+      "permissions": "Public: find"
+    },
+    {
+      "apiId": "publication",
+      "displayName": "Publication",
+      "fields": [
+        { "name": "title", "type": "Text" },
+        { "name": "description", "type": "Long text", "required": false },
+        {
+          "name": "category",
+          "type": "Enumeration",
+          "values": ["bulgarica", "bibliothek", "other"]
+        },
+        { "name": "sortOrder", "type": "Number (integer)", "default": 0 },
+        { "name": "coverImage", "type": "Media (single)" },
+        { "name": "pdfVerzeichnis", "type": "Media (single)", "required": false },
+        { "name": "pdfInfo", "type": "Media (single)", "required": false },
+        { "name": "pdfExternal", "type": "Text", "required": false, "note": "External URL (e.g. journal article)" },
+        { "name": "showOnHome", "type": "Boolean", "default": false },
+        { "name": "homeOrder", "type": "Number (integer)", "default": 0 }
+      ],
+      "permissions": "Public: find"
+    },
+    {
+      "apiId": "link-section",
+      "displayName": "Link Section",
+      "fields": [
+        { "name": "title", "type": "Text" },
+        { "name": "sortOrder", "type": "Number (integer)", "default": 0 },
+        {
+          "name": "rows",
+          "type": "Component (repeatable)",
+          "component": {
+            "name": "link-row",
+            "category": "shared",
+            "fields": [
+              { "name": "text", "type": "Text" },
+              { "name": "url", "type": "Text" }
+            ]
+          }
+        }
+      ],
+      "permissions": "Public: find",
+      "note": "If you name the repeatable field differently, either rename it to rows or extend mapStrapiLinkSection in src/lib/strapi/mappers.ts."
+    }
+  ]
+}

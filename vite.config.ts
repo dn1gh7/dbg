@@ -15,5 +15,12 @@ export default defineConfig({
     strictPort: true,
     host: true,
     origin: 'http://0.0.0.0:8080',
+    proxy: {
+      '/strapi-api': {
+        target: 'http://127.0.0.1:1337',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/strapi-api/, ''),
+      },
+    },
   },
 });

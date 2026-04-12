@@ -1,10 +1,13 @@
 import { useParams } from 'react-router';
-import { EVENTS } from '../globlas';
+import { useCmsEventDetail } from '../hooks/useCms';
 
 export default function EventDetail() {
   const { eventId } = useParams();
+  const { status, event } = useCmsEventDetail(eventId);
 
-  const event = EVENTS.find((e) => e.id === eventId);
+  if (status === 'loading') {
+    return <p className="body-text">Laden…</p>;
+  }
 
   if (!event) {
     return <p>Event nicht gefunden</p>;

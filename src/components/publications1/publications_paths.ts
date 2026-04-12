@@ -1,4 +1,4 @@
-export const bulgarica = [
+export const STATIC_BULGARICA = [
   {
     title: 'Bulgarica 1',
     pdf_path: '',
@@ -51,7 +51,7 @@ export const bulgarica = [
   },
 ];
 
-export const bibliothek = [
+export const STATIC_BIBLIOTHEK = [
   {
     title: 'Bibiliothek 21',
     pdf_path: '',
@@ -75,7 +75,7 @@ export const bibliothek = [
   },
 ];
 
-export const others = [
+export const STATIC_OTHERS = [
   {
     title: 'Wendezeiten: Erfahrungen – Erwartungen – Erzählungen',
     description:
@@ -87,3 +87,7 @@ export const others = [
     img_path: '/publications/0204-8779_2025_1_47_cover.jpg',
   },
 ];
+
+export const bulgarica = STATIC_BULGARICA;
+export const bibliothek = STATIC_BIBLIOTHEK;
+export const others = STATIC_OTHERS;

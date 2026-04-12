@@ -1,16 +1,17 @@
 import { useMemo } from 'react';
-import { EVENTS } from '../globlas';
 import { SocietyEvent } from '../globlas';
 import { EventCard } from './eventCard';
+import { useCmsEvents } from '../hooks/useCms';
 
 export default function Events() {
-  const today = new Date();
+  const { data: events } = useCmsEvents();
 
   const { current, archive } = useMemo(() => {
+    const today = new Date();
     const current: SocietyEvent[] = [];
     const archive: SocietyEvent[] = [];
 
-    EVENTS.forEach((event) => {
+    events.forEach((event) => {
       const eventDate = new Date(event.startDate);
       if (eventDate >= today) {
         current.push(event);
@@ -21,7 +22,7 @@ export default function Events() {
     archive.sort((a, b) => b.startDate - a.startDate);
 
     return { current, archive };
-  }, [EVENTS]);
+  }, [events]);
 
   return (
     <div className="body-text">

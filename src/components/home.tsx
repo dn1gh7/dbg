@@ -1,16 +1,18 @@
 import { EventCard } from './eventCard';
-import { EVENTS, SocietyEvent } from '../globlas';
+import { SocietyEvent } from '../globlas';
 import { useMemo } from 'react';
-import { others } from './publications1/publications_paths';
 import PublicationCard from './publications1/publicationCard';
+import { useCmsEvents, useCmsHomeReading } from '../hooks/useCms';
 
 export default function Home() {
-  const today = new Date();
+  const { data: events } = useCmsEvents();
+  const { data: readingItems } = useCmsHomeReading();
 
   const currentEvents = useMemo(() => {
+    const today = new Date();
     const current: SocietyEvent[] = [];
 
-    EVENTS.forEach((event) => {
+    events.forEach((event) => {
       const eventDate = new Date(event.startDate);
       if (eventDate >= today) {
         current.push(event);
@@ -19,7 +21,7 @@ export default function Home() {
     current.sort((a, b) => b.startDate - a.startDate);
 
     return current;
-  }, [EVENTS]);
+  }, [events]);
 
   return (
     <>
@@ -36,17 +38,23 @@ export default function Home() {
         Neues zum Lesen
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-5 gap-4  py-4">
-        <img
-          className="border-black border-1"
-          src="/publications/bulgarica_7.jpg"
-          alt=""
-        />
-        <img
-          className="border-black border-1"
-          src="/publications/9783954771769_g.jpg"
-          alt=""
-        />
-        <PublicationCard publication={others[0]} />
+        {readingItems.map((pub, i) => {
+          const hasPdfLinks =
+            (pub.pdf_path && pub.pdf_path.length > 0) ||
+            (pub.pdf_path1 && pub.pdf_path1.length > 0) ||
+            (pub.pdf_path2 && pub.pdf_path2.length > 0);
+          if (hasPdfLinks) {
+            return <PublicationCard key={i} publication={pub} />;
+          }
+          return (
+            <img
+              key={i}
+              className="border-black border-1"
+              src={pub.img_path}
+              alt={pub.title}
+            />
+          );
+        })}
       </div>
     </>
   );

@@ -1,10 +1,12 @@
-import { lol } from './linkCollection';
+import { useCmsLinkSections } from '../../hooks/useCms';
 
 export default function Links() {
+  const { data: sections } = useCmsLinkSections();
+
   return (
     <>
       <div className="md:grid md:grid-cols-2 sm:gap-5 md:gap-10 body-text">
-        {lol.map((category, i) => (
+        {sections.map((category, i) => (
           <section key={i} className="">
             <h2 className=" subheading text-white p-1 bg-cambridge">
               {category.title}

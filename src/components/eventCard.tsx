@@ -2,6 +2,13 @@ import { Link } from 'react-router';
 import { SocietyEvent } from '../globlas';
 
 export const EventCard = (event: SocietyEvent, index: number) => {
+  const thumb =
+    event.cardImageUrl ||
+    (event.imgPaths[0] && event.imgPaths[0].length > 0
+      ? event.imgPaths[0]
+      : null) ||
+    '/Cyril-methodius-small.jpg';
+
   return (
     <Link to={`/events/${event.id}`} key={index}>
       <div
@@ -9,7 +16,7 @@ export const EventCard = (event: SocietyEvent, index: number) => {
         className="flex flex-col border-[#2e2f2f] hover:outline-solid hover:outline-2 hover:outline-periwinkleh outline-offset-2 border-2 rounded-md overflow-hidden"
       >
         <img
-          src={'/Cyril-methodius-small.jpg'}
+          src={thumb}
           className="h-20 object-cover object-top"
           alt=""
         />
