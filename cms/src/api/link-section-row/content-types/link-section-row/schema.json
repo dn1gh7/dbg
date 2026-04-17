@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "link_section_rows",
+  "info": {
+    "singularName": "link-section-row",
+    "pluralName": "link-section-rows",
+    "displayName": "Link-Section-Row"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

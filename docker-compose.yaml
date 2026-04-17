@@ -1,0 +1,81 @@
+# DBG – Strapi + PostgreSQL
+#
+# Why PostgreSQL: Strapi supports SQLite for quick local trials, but for Docker you
+# usually want a real server DB. Postgres is the common production choice and works
+# well with Strapi’s official Docker-style setups.
+#
+# How this connects to the Vite site (no Docker link required):
+# - The React app runs in the browser and calls Strapi over HTTP.
+# - Strapi is published on the host as localhost:1337 → set in .env.local:
+#     VITE_STRAPI_URL=http://localhost:1337
+# - Enable CORS in Strapi for your dev origin (e.g. http://localhost:8080) and your
+#   production site URL (see Strapi docs: middlewares → cors).
+#
+# One-time: scaffold a Strapi app into ./cms (with Postgres running first on port 5432):
+#   docker compose up -d postgres
+#   npx create-strapi-app@latest cms
+#   When prompted, choose PostgreSQL, host 127.0.0.1, port 5432, DB strapi, user strapi, password strapi
+#   (CLI options differ by Strapi version; use --help if available.)
+#
+# Then copy .env.docker.example → .env.docker, replace secrets, and:
+#   docker compose --env-file .env.docker up --build
+#
+# The Strapi container uses DATABASE_HOST=postgres (the Docker service name), not localhost.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dbg-strapi-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+      POSTGRES_DB: strapi
+    volumes:
+      - dbg_strapi_pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U strapi -d strapi']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  strapi:
+    build:
+      context: ./cms
+      dockerfile: Dockerfile
+    container_name: dbg-strapi
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./cms:/srv/app
+      - strapi_node_modules:/srv/app/node_modules
+      - strapi_uploads:/srv/app/public/uploads
+      - ./docker/strapi-entrypoint.sh:/strapi-entrypoint.sh:ro
+    command: ['/bin/sh', '/strapi-entrypoint.sh']
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 1337
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+      DATABASE_SSL: 'false'
+      APP_KEYS: ${STRAPI_APP_KEYS}
+      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT}
+      JWT_SECRET: ${STRAPI_JWT_SECRET}
+    ports:
+      - '1337:1337'
+
+volumes:
+  dbg_strapi_pgdata:
+  strapi_node_modules:
+  strapi_uploads:

@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
-import { SocietyEvent } from '../globlas';
+import type { CmsEvent } from '../lib/strapi/events';
 
-export const EventCard = (event: SocietyEvent, index: number) => {
+export const EventCard = (event: CmsEvent, index: number) => {
   const thumb =
     event.cardImageUrl ||
     (event.imgPaths[0] && event.imgPaths[0].length > 0
@@ -26,19 +26,9 @@ export const EventCard = (event: SocietyEvent, index: number) => {
             <span>{new Date(event.startDate).toLocaleDateString('de-DE')}</span>
             {event.endDate && (
               <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#82c09a"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="12.1" cy="12.1" r="1" />
-                </svg>
+                <span className="px-2 text-cambridge" aria-hidden="true">
+                  &middot;
+                </span>
                 <span>
                   {new Date(event.endDate).toLocaleDateString('de-DE')}
                 </span>

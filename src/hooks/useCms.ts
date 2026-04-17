@@ -7,11 +7,12 @@ import {
   fetchCmsLinkSections,
   fetchCmsPresidium,
   fetchCmsPublicationsByCategory,
+  type CmsEvent,
   type LinkSection,
 } from '../lib/strapi/queries';
-import type { PresidiumMember, SocietyEvent } from '../globlas';
+import type { PresidiumMember } from '../globlas';
 import type { Publication } from '../components/publications1/publications';
-import { STATIC_EVENTS, STATIC_PRESIDIUM } from '../globlas';
+import { STATIC_PRESIDIUM } from '../globlas';
 import {
   STATIC_BIBLIOTHEK,
   STATIC_BULGARICA,
@@ -70,8 +71,8 @@ function useCmsList<T>(
   return { data, loading, fromCms };
 }
 
-export function useCmsEvents(): AsyncState<SocietyEvent[]> {
-  return useCmsList(STATIC_EVENTS, fetchCmsEvents, []);
+export function useCmsEvents(): AsyncState<CmsEvent[]> {
+  return useCmsList<CmsEvent[]>([], fetchCmsEvents, []);
 }
 
 export function useCmsPresidium(): AsyncState<PresidiumMember[]> {
@@ -113,7 +114,7 @@ export function useCmsLinkSections(): AsyncState<LinkSection[]> {
 
 type EventDetailState =
   | { status: 'loading'; event: null }
-  | { status: 'ready'; event: SocietyEvent | null };
+  | { status: 'ready'; event: CmsEvent | null };
 
 export function useCmsEventDetail(eventId: string | undefined): EventDetailState {
   const configured = isStrapiConfigured();
@@ -126,10 +127,7 @@ export function useCmsEventDetail(eventId: string | undefined): EventDetailState
     }
 
     if (!configured) {
-      setState({
-        status: 'ready',
-        event: STATIC_EVENTS.find((e) => e.id === eventId) ?? null,
-      });
+      setState({ status: 'ready', event: null });
       return;
     }
 
@@ -138,16 +136,12 @@ export function useCmsEventDetail(eventId: string | undefined): EventDetailState
 
     (async () => {
       try {
-        let ev = await fetchCmsEventById(eventId, ac.signal);
+        const ev = await fetchCmsEventById(eventId, ac.signal);
         if (ac.signal.aborted) return;
-        if (!ev) {
-          ev = STATIC_EVENTS.find((e) => e.id === eventId) ?? null;
-        }
         setState({ status: 'ready', event: ev });
       } catch {
         if (ac.signal.aborted) return;
-        const ev = STATIC_EVENTS.find((e) => e.id === eventId) ?? null;
-        setState({ status: 'ready', event: ev });
+        setState({ status: 'ready', event: null });
       }
     })();
 

@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "presidium_members",
+  "info": {
+    "singularName": "presidium-member",
+    "pluralName": "presidium-members",
+    "displayName": "Presidium-Member"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

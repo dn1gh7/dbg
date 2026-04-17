@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
-import { SocietyEvent } from '../globlas';
 import { EventCard } from './eventCard';
 import { useCmsEvents } from '../hooks/useCms';
+import type { CmsEvent } from '../lib/strapi/events';
 
 export default function Events() {
   const { data: events } = useCmsEvents();
 
   const { current, archive } = useMemo(() => {
     const today = new Date();
-    const current: SocietyEvent[] = [];
-    const archive: SocietyEvent[] = [];
+    const current: CmsEvent[] = [];
+    const archive: CmsEvent[] = [];
 
     events.forEach((event) => {
       const eventDate = new Date(event.startDate);

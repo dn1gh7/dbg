@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 import { useCmsEventDetail } from '../hooks/useCms';
+import StrapiRichText from './strapiRichText';
 
 export default function EventDetail() {
   const { eventId } = useParams();
@@ -22,7 +23,7 @@ export default function EventDetail() {
           <span>- {new Date(event.endDate).toLocaleDateString('de-DE')}</span>
         )}
       </p>
-      <p className="whitespace-pre-wrap break-words">{event.text}</p>
+      <StrapiRichText value={event.description} />
       {event.invitePdfPath && (
         <a
           className="bg-cambridge rounded-sm font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white inline-block p-3 my-5"

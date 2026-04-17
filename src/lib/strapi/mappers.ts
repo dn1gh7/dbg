@@ -17,6 +17,28 @@ function pickString(obj: Record<string, unknown>, keys: string[]): string {
   return '';
 }
 
+function richTextNodeToText(node: unknown): string {
+  if (!node || typeof node !== 'object') return '';
+  const rec = node as Record<string, unknown>;
+  const ownText = typeof rec.text === 'string' ? rec.text : '';
+  const children = Array.isArray(rec.children) ? rec.children : [];
+  const childText = children.map(richTextNodeToText).filter(Boolean).join('');
+  const line = [ownText, childText].filter(Boolean).join('');
+  return line;
+}
+
+function pickTextLike(obj: Record<string, unknown>, keys: string[]): string {
+  for (const k of keys) {
+    const v = obj[k];
+    if (typeof v === 'string' && v.trim().length > 0) return v;
+    if (Array.isArray(v)) {
+      const lines = v.map(richTextNodeToText).map((s) => s.trim()).filter(Boolean);
+      if (lines.length) return lines.join('\n\n');
+    }
+  }
+  return '';
+}
+
 function pickOptionalString(obj: Record<string, unknown>, keys: string[]): string | undefined {
   const s = pickString(obj, keys);
   return s || undefined;
@@ -54,7 +76,7 @@ export function mapStrapiEvent(baseUrl: string, entity: StrapiEntity): SocietyEv
   return {
     id,
     title: pickString(f, ['title']),
-    text: pickString(f, ['text', 'body', 'description']),
+    text: pickTextLike(f, ['text', 'body', 'description']),
     imgPaths: imgPaths.length ? imgPaths : [''],
     invitePdfPath: invite,
     programPdfPath: program,

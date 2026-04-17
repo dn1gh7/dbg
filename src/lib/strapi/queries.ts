@@ -1,17 +1,16 @@
 import { getStrapiBaseUrl } from './config';
 import { strapiFetchJson } from './fetchJson';
 import {
-  parseEventOneResponse,
-  parseEventsResponse,
   parseLinkSectionsResponse,
   parsePresidiumResponse,
   parsePublicationsResponse,
 } from './mappers';
+import { parseEventOneResponse, parseEventsResponse, type CmsEvent } from './events';
 import type { LinkSection } from './mappers';
-import type { PresidiumMember, SocietyEvent } from '../../globlas';
+import type { PresidiumMember } from '../../globlas';
 import type { Publication } from '../../components/publications1/publications';
 
-export async function fetchCmsEvents(signal?: AbortSignal): Promise<SocietyEvent[]> {
+export async function fetchCmsEvents(signal?: AbortSignal): Promise<CmsEvent[]> {
   const base = getStrapiBaseUrl();
   const json = await strapiFetchJson(`/api/events?sort=startDate:desc&populate=*`, {
     signal,
@@ -22,7 +21,7 @@ export async function fetchCmsEvents(signal?: AbortSignal): Promise<SocietyEvent
 export async function fetchCmsEventById(
   id: string,
   signal?: AbortSignal,
-): Promise<SocietyEvent | null> {
+): Promise<CmsEvent | null> {
   const base = getStrapiBaseUrl();
   const json = await strapiFetchJson(`/api/events/${encodeURIComponent(id)}?populate=*`, {
     signal,
@@ -67,3 +66,4 @@ export async function fetchCmsLinkSections(signal?: AbortSignal): Promise<LinkSe
 }
 
 export type { LinkSection } from './mappers';
+export type { CmsEvent } from './events';

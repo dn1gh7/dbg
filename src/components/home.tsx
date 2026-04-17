@@ -1,8 +1,8 @@
 import { EventCard } from './eventCard';
-import { SocietyEvent } from '../globlas';
 import { useMemo } from 'react';
 import PublicationCard from './publications1/publicationCard';
 import { useCmsEvents, useCmsHomeReading } from '../hooks/useCms';
+import type { CmsEvent } from '../lib/strapi/events';
 
 export default function Home() {
   const { data: events } = useCmsEvents();
@@ -10,7 +10,7 @@ export default function Home() {
 
   const currentEvents = useMemo(() => {
     const today = new Date();
-    const current: SocietyEvent[] = [];
+    const current: CmsEvent[] = [];
 
     events.forEach((event) => {
       const eventDate = new Date(event.startDate);
