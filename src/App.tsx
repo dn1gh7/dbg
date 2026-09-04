@@ -1,19 +1,17 @@
 import './App.css';
-import { Routes, Route, HashRouter, useLocation } from 'react-router';
+import { Routes, Route, BrowserRouter, useLocation } from 'react-router';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 import Home from './components/home';
 import About from './components/about';
 import Events from './components/events';
 import EventDetail from './components/eventDetail';
-import Publications from './components/publications1/publications';
+import Publications from './components/publications/publications';
 import Links from './components/links/links';
 import Membership from './components/membership';
-// import Presented from './components/presented';
-// import BulgarianStudies from './components/bulgarianStudies';
-// import Collaborations from './components/collaborations';
 import Impressum from './components/impressum';
 import Contact from './components/contact';
+import NotFound from './components/notFound';
 
 import NavBar from './components/navBar';
 import ContentContainer from './components/contentContainer';
@@ -25,13 +23,7 @@ const navItems = [
   { title: 'Links', link: 'links' },
   { title: 'Mitgliedschaft', link: 'membership' },
   { title: 'Kontakt', link: 'contact' },
-
-  // { title: 'Vorgestellt', link: 'presented' },
-  // { title: 'Bulgaristik in Deutschland', link: 'bulgarianStudies' },
-  // { title: 'Kooperationspartner und Förderer', link: 'collaborations' },
 ];
-
-//TODO EMAIL ADRESSE, KONTAKT NAVITEM
 
 const TitleManager = ({
   setPageTitle,
@@ -42,20 +34,30 @@ const TitleManager = ({
 
   useEffect(() => {
     const pathToTitle: Record<string, string> = {
-      '/': 'DBG',
+      // The landing page has no title of its own, so the header bar shows just the
+      // society name there.
+      '/': '',
       '/about': 'Über uns',
       '/events': 'Veranstaltungen',
       '/publications': 'Publikationen',
       '/links': 'Links',
       '/membership': 'Mitgliedschaft',
-      // '/presented': 'Vorgestellt',
-      // '/bulgarianStudies': 'Bulgaristik in Deutschland',
-      // '/collaborations': 'Kooperationspartner und Förderer',
       '/contact': 'Kontakt',
       '/impressum': 'Impressum',
     };
 
-    setPageTitle(pathToTitle[location.pathname] || '');
+    // The router treats /about and /about/ as the same route, so the header has to
+    // as well. An event detail page carries the event's own name as its heading, so
+    // the bar stays on the society name there; anything else unknown is the 404 page.
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+
+    if (path in pathToTitle) {
+      setPageTitle(pathToTitle[path]);
+    } else if (path.startsWith('/events/')) {
+      setPageTitle('');
+    } else {
+      setPageTitle('Seite nicht gefunden');
+    }
   }, [location, setPageTitle]);
 
   return null;
@@ -65,8 +67,11 @@ const ScrollToTop = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
   useLayoutEffect(() => {
+    // A link that carries a hash (e.g. /publications#bulgarica-7) is asking for a
+    // spot inside the page; the target route scrolls there itself.
+    if (location.hash) return;
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return <>{children}</>;
 };
@@ -97,7 +102,7 @@ function App() {
   }, []);
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <NavBar
         navItems={navItems}
         mdNavOpen={isNavOpen}
@@ -114,15 +119,15 @@ function App() {
             <Route path="publications" element={<Publications />} />
             <Route path="links" element={<Links />} />
             <Route path="membership" element={<Membership />} />
-            {/* <Route path="presented" element={<Presented />} />
-            <Route path="bulgarianStudies" element={<BulgarianStudies />} />
-            <Route path="collaborations" element={<Collaborations />} /> */}
             <Route path="impressum" element={<Impressum />} />
-            <Route path="contact" element={<Contact />}></Route>
+            <Route path="contact" element={<Contact />} />
+            {/* nginx serves index.html for unknown paths (docker/nginx.conf), so
+                deep links land here rather than on the web server's own 404. */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </ScrollToTop>
       </ContentContainer>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

@@ -5,62 +5,83 @@ import {
   parsePresidiumResponse,
   parsePublicationsResponse,
 } from './mappers';
-import { parseEventOneResponse, parseEventsResponse, type CmsEvent } from './events';
+import {
+  parseEventOneResponse,
+  parseEventsResponse,
+  type CmsEvent,
+} from './events';
 import type { LinkSection } from './mappers';
-import type { PresidiumMember } from '../../globlas';
-import type { Publication } from '../../components/publications1/publications';
+import type { PresidiumMember } from '../../globals';
+import type { Publication } from '../../components/publications/publications';
 
-export async function fetchCmsEvents(signal?: AbortSignal): Promise<CmsEvent[]> {
+export async function fetchCmsEvents(
+  signal?: AbortSignal
+): Promise<CmsEvent[]> {
   const base = getStrapiBaseUrl();
-  const json = await strapiFetchJson(`/api/events?sort=startDate:desc&populate=*`, {
-    signal,
-  });
+  const json = await strapiFetchJson(
+    `/api/events?sort=startDate:desc&populate=*`,
+    {
+      signal,
+    }
+  );
   return parseEventsResponse(base, json);
 }
 
 export async function fetchCmsEventById(
   id: string,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ): Promise<CmsEvent | null> {
   const base = getStrapiBaseUrl();
-  const json = await strapiFetchJson(`/api/events/${encodeURIComponent(id)}?populate=*`, {
-    signal,
-  });
+  const json = await strapiFetchJson(
+    `/api/events/${encodeURIComponent(id)}?populate=*`,
+    {
+      signal,
+    }
+  );
   return parseEventOneResponse(base, json);
 }
 
-export async function fetchCmsPresidium(signal?: AbortSignal): Promise<PresidiumMember[]> {
-  const json = await strapiFetchJson(`/api/presidium-members?sort=sortOrder:asc&populate=*`, {
-    signal,
-  });
+export async function fetchCmsPresidium(
+  signal?: AbortSignal
+): Promise<PresidiumMember[]> {
+  const json = await strapiFetchJson(
+    `/api/presidium-members?sort=sortOrder:asc&populate=*`,
+    {
+      signal,
+    }
+  );
   return parsePresidiumResponse(json);
 }
 
 export async function fetchCmsPublicationsByCategory(
   category: 'bulgarica' | 'bibliothek' | 'other',
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ): Promise<Publication[]> {
   const base = getStrapiBaseUrl();
   const json = await strapiFetchJson(
     `/api/publications?filters[category][$eq]=${encodeURIComponent(category)}&sort=sortOrder:asc&populate=*`,
-    { signal },
+    { signal }
   );
   return parsePublicationsResponse(base, json);
 }
 
-export async function fetchCmsHomePublications(signal?: AbortSignal): Promise<Publication[]> {
+export async function fetchCmsHomePublications(
+  signal?: AbortSignal
+): Promise<Publication[]> {
   const base = getStrapiBaseUrl();
   const json = await strapiFetchJson(
     `/api/publications?filters[showOnHome][$eq]=true&sort=homeOrder:asc&populate=*`,
-    { signal },
+    { signal }
   );
   return parsePublicationsResponse(base, json);
 }
 
-export async function fetchCmsLinkSections(signal?: AbortSignal): Promise<LinkSection[]> {
+export async function fetchCmsLinkSections(
+  signal?: AbortSignal
+): Promise<LinkSection[]> {
   const json = await strapiFetchJson(
     `/api/link-sections?sort=sortOrder:asc&populate[rows]=*`,
-    { signal },
+    { signal }
   );
   return parseLinkSectionsResponse(json);
 }

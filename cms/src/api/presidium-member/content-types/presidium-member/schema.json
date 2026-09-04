@@ -10,5 +10,17 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "roleTitle": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
 }

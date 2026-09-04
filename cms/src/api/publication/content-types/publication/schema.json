@@ -12,7 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
       "type": "text"
@@ -21,27 +22,45 @@
       "type": "enumeration",
       "enum": [
         "bulgarica",
-        "bulgarische bibliothek",
-        "forum: bulgarien"
+        "bibliothek",
+        "forum"
       ]
     },
     "sortOrder": {
       "type": "integer",
       "default": 0
     },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "pdfVerzeichnis": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "allowedTypes": [
         "files"
       ]
     },
     "pdfInfo": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "allowedTypes": [
         "files"
       ]
+    },
+    "pdfExternal": {
+      "type": "string"
+    },
+    "showOnHome": {
+      "type": "boolean",
+      "default": false
+    },
+    "homeOrder": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

@@ -10,6 +10,8 @@
     "dev": "strapi develop",
     "develop": "strapi develop",
     "start": "strapi start",
+    "seed": "node -r esbuild-register scripts/seed.ts",
+    "migrate:assets": "node -r esbuild-register scripts/migrate-assets.ts",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"

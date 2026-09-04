@@ -1,4 +1,7 @@
-# DBG – Strapi + PostgreSQL
+# DBG – Strapi + PostgreSQL, DEVELOPMENT stack.
+#
+# This bind-mounts ./cms and runs `strapi develop`, so schema edits hot-reload.
+# For deployment use docker-compose.prod.yaml instead.
 #
 # Why PostgreSQL: Strapi supports SQLite for quick local trials, but for Docker you
 # usually want a real server DB. Postgres is the common production choice and works
@@ -8,17 +11,13 @@
 # - The React app runs in the browser and calls Strapi over HTTP.
 # - Strapi is published on the host as localhost:1337 → set in .env.local:
 #     VITE_STRAPI_URL=http://localhost:1337
-# - Enable CORS in Strapi for your dev origin (e.g. http://localhost:8080) and your
-#   production site URL (see Strapi docs: middlewares → cors).
+# - Allowed CORS origins come from STRAPI_CORS_ORIGINS (see cms/config/middlewares.ts).
 #
-# One-time: scaffold a Strapi app into ./cms (with Postgres running first on port 5432):
-#   docker compose up -d postgres
-#   npx create-strapi-app@latest cms
-#   When prompted, choose PostgreSQL, host 127.0.0.1, port 5432, DB strapi, user strapi, password strapi
-#   (CLI options differ by Strapi version; use --help if available.)
-#
-# Then copy .env.docker.example → .env.docker, replace secrets, and:
+# Copy section 2 of .env.example → .env.docker, replace the secrets, and:
 #   docker compose --env-file .env.docker up --build
+#
+# Then seed the CMS with the site's existing content:
+#   docker compose exec strapi npm run seed
 #
 # The Strapi container uses DATABASE_HOST=postgres (the Docker service name), not localhost.
 
@@ -67,11 +66,14 @@ services:
       DATABASE_USERNAME: strapi
       DATABASE_PASSWORD: strapi
       DATABASE_SSL: 'false'
-      APP_KEYS: ${STRAPI_APP_KEYS}
-      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT}
-      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET}
-      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT}
-      JWT_SECRET: ${STRAPI_JWT_SECRET}
+      STRAPI_PUBLIC_URL: ${STRAPI_PUBLIC_URL:-http://localhost:1337}
+      STRAPI_CORS_ORIGINS: ${STRAPI_CORS_ORIGINS:-http://localhost:8080}
+      APP_KEYS: ${STRAPI_APP_KEYS:?set STRAPI_APP_KEYS in .env.docker}
+      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT:?set STRAPI_API_TOKEN_SALT in .env.docker}
+      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET:?set STRAPI_ADMIN_JWT_SECRET in .env.docker}
+      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT:?set STRAPI_TRANSFER_TOKEN_SALT in .env.docker}
+      JWT_SECRET: ${STRAPI_JWT_SECRET:?set STRAPI_JWT_SECRET in .env.docker}
+      ENCRYPTION_KEY: ${STRAPI_ENCRYPTION_KEY:?set STRAPI_ENCRYPTION_KEY in .env.docker}
     ports:
       - '1337:1337'
 

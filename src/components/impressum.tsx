@@ -1,6 +1,6 @@
 export default function Impressum() {
   return (
-    <div className="">
+    <div className="measure">
       <p>
         Deutsch-Bulgarische Gesellschaft zur Förderung der Beziehungen zwischen
         Deutschland und Bulgarien e. V.
@@ -28,7 +28,7 @@ export default function Impressum() {
         Sabine Lef&egrave;vre
       </p>
 
-      <h2>Kontakt</h2>
+      <h2 className="subheading mt-8 mb-2 text-brand-900">Kontakt</h2>
       <p>
         Telefon: +49 (0)7071 - 2972415
         <br />
@@ -37,7 +37,7 @@ export default function Impressum() {
         E-Mail: info.dbg@atomicmail.io
       </p>
 
-      <h2>Redaktionell verantwortlich</h2>
+      <h2 className="subheading mt-8 mb-2 text-brand-900">Redaktionell verantwortlich</h2>
       <p>
         Prof. Dr. Raiko Krau&szlig;
         <br />
@@ -51,7 +51,7 @@ export default function Impressum() {
         72070 T&uuml;bingen
       </p>
 
-      <h2>
+      <h2 className="subheading mt-8 mb-2 text-brand-900">
         Verbraucher&shy;streit&shy;beilegung/Universal&shy;schlichtungs&shy;stelle
       </h2>
       <p>

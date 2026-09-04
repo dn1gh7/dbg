@@ -1,0 +1,24 @@
+# Production Strapi image: dependencies and the admin panel are baked in, so the
+# container starts with `strapi start` rather than compiling on boot.
+# The dev stack (../docker-compose.yaml) uses ./Dockerfile with a bind mount instead.
+FROM node:20-bookworm-slim
+
+WORKDIR /srv/app
+ENV NODE_ENV=production
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends python3 build-essential \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+# `strapi build` needs the admin secrets present; real values are injected at runtime.
+RUN APP_KEYS=build API_TOKEN_SALT=build ADMIN_JWT_SECRET=build \
+    TRANSFER_TOKEN_SALT=build JWT_SECRET=build ENCRYPTION_KEY=build \
+    npm run build
+
+EXPOSE 1337
+CMD ["npm", "run", "start"]

@@ -28,16 +28,26 @@ function renderNode(node: unknown, key: number): ReactNode {
   if (type === 'link') {
     const href = typeof n.url === 'string' ? n.url : '';
     return (
-      <a key={key} href={href} target="_blank" rel="noreferrer" className="underline">
+      <a key={key} href={href} target="_blank" rel="noreferrer" className="link-inline">
         {renderChildren(n.children)}
       </a>
     );
   }
 
   const childContent = renderChildren(n.children);
-  if (type === 'heading') return <h3 key={key}>{childContent}</h3>;
+  if (type === 'heading')
+    return (
+      <h3 key={key} className="subheading mt-6 mb-2 text-brand-900">
+        {childContent}
+      </h3>
+    );
   if (type === 'list-item') return <li key={key}>{childContent}</li>;
-  if (type === 'list') return <ul key={key}>{childContent}</ul>;
+  if (type === 'list')
+    return (
+      <ul key={key} className="ml-5 list-disc space-y-1 marker:text-brand-500">
+        {childContent}
+      </ul>
+    );
   return <p key={key}>{childContent}</p>;
 }
 

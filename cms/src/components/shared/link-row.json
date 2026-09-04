@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_link_rows",
+  "info": {
+    "displayName": "Link Row",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

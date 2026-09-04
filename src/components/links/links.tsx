@@ -5,17 +5,17 @@ export default function Links() {
 
   return (
     <>
-      <div className="md:grid md:grid-cols-2 sm:gap-5 md:gap-10 body-text">
+      <div className="md:grid md:grid-cols-2 md:gap-x-10 body-text">
         {sections.map((category, i) => (
           <section key={i} className="">
-            <h2 className=" subheading text-white p-1 bg-cambridge">
+            <h2 className="section-heading">
               {category.title}
             </h2>
-            <ul className="   ml-5 mb-5 list-disc marker:text-cambridge">
+            <ul className="ml-5 mb-8 list-disc space-y-2 marker:text-brand-500">
               {category.links.map((link, j) => (
-                <li key={j} className="pb-2">
+                <li key={j}>
                   <a
-                    className="underline hover:bg-cambridge visited:text-visited"
+                    className="link-inline"
                     target="_blank"
                     href={link.ref}
                   >

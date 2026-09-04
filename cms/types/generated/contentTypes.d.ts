@@ -447,40 +447,15 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Blocks;
     endDate: Schema.Attribute.Date;
+    images: Schema.Attribute.Media<'images', true>;
+    invitePdf: Schema.Attribute.Media<'files'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
+    programPdf: Schema.Attribute.Media<'files'>;
     publishedAt: Schema.Attribute.DateTime;
     startDate: Schema.Attribute.Date;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiLinkSectionRowLinkSectionRow
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'link_section_rows';
-  info: {
-    displayName: 'Link-Section-Row';
-    pluralName: 'link-section-rows';
-    singularName: 'link-section-row';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::link-section-row.link-section-row'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -508,6 +483,9 @@ export interface ApiLinkSectionLinkSection extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    rows: Schema.Attribute.Component<'shared.link-row', true>;
+    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -535,7 +513,10 @@ export interface ApiPresidiumMemberPresidiumMember
       'api::presidium-member.presidium-member'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    roleTitle: Schema.Attribute.String;
+    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -554,23 +535,27 @@ export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
   };
   attributes: {
     category: Schema.Attribute.Enumeration<
-      ['bulgarica', 'bulgarische bibliothek', 'forum: bulgarien']
+      ['bulgarica', 'bibliothek', 'forum']
     >;
+    coverImage: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    homeOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::publication.publication'
     > &
       Schema.Attribute.Private;
-    pdfInfo: Schema.Attribute.Media<'files', true>;
-    pdfVerzeichnis: Schema.Attribute.Media<'files', true>;
+    pdfExternal: Schema.Attribute.String;
+    pdfInfo: Schema.Attribute.Media<'files'>;
+    pdfVerzeichnis: Schema.Attribute.Media<'files'>;
     publishedAt: Schema.Attribute.DateTime;
+    showOnHome: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1089,7 +1074,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::event.event': ApiEventEvent;
-      'api::link-section-row.link-section-row': ApiLinkSectionRowLinkSectionRow;
       'api::link-section.link-section': ApiLinkSectionLinkSection;
       'api::presidium-member.presidium-member': ApiPresidiumMemberPresidiumMember;
       'api::publication.publication': ApiPublicationPublication;

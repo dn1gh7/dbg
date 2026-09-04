@@ -10,5 +10,19 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    },
+    "rows": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link-row"
+    }
+  }
 }

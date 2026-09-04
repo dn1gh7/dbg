@@ -1,11 +1,5 @@
-export const links = [
-  {
-    text: 'Botschaft der Republik Bulgarien in Deutschland',
-    ref: 'https://mfa.bg/embassies/germany/',
-  },
-];
-
-export const lol = [
+/** Fallback link sections, used when Strapi is unreachable or not configured. */
+export const STATIC_LINK_SECTIONS = [
   {
     title: 'Deutsch-bulgarische Gesellschaften/Vereine in Deutschland',
     links: [
@@ -93,6 +87,15 @@ export const lol = [
     ],
   },
   {
+    title: 'Botschaft der Republik Bulgarien in Deutschland',
+    links: [
+      {
+        text: 'Botschaft der Republik Bulgarien in Deutschland',
+        ref: 'https://mfa.bg/embassies/germany/',
+      },
+    ],
+  },
+  {
     title: 'Honorarkonsulate der Republik Bulgarien in Deutschland',
     links: [
       {
@@ -103,7 +106,7 @@ export const lol = [
       { text: 'Nordrhein-Westfalen', ref: 'https://www.bulgarien-nrw.de/' },
       {
         text: 'Sachsen-Anhalt',
-        ref: 'www.honorarkonsul-in-sachsen-anhalt.de',
+        ref: 'https://www.honorarkonsul-in-sachsen-anhalt.de',
       },
       {
         text: 'Rheinland-Pfalz',

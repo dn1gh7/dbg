@@ -34,9 +34,9 @@ export default function About() {
             Firmen können Mitglied werden.
           </p>
 
-          <div className="flex flex-2 justify-center items-center bg-[url(/images/flower.JPG)] bg-cover bg-bottom min-h-[400px]">
+          <div className="my-4 flex flex-2 justify-center items-center rounded-md bg-[url(/images/flower.JPG)] bg-cover bg-bottom min-h-[320px]">
             <Link
-              className="self-center w-fit text-center rounded-md  p-3 mx-3 bg-cambridge font-semibold hover:bg-periwinkleh transition:bg transition delay-50 duration-200 ease-in text-white"
+              className="btn-primary mx-3"
               to="/membership"
             >
               <span>Unterstützen auch Sie unsere Arbeit </span>
@@ -68,25 +68,15 @@ export default function About() {
           </p>
         </div>
 
-        <div>
-          <h3 className="text-center subheading">Präsidium</h3>
-          <ul className="sm:grid grid-cols-3">
+        <div className="mt-12">
+          <h2 className="section-heading">Präsidium</h2>
+          <ul className="grid gap-x-4 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
             {presidium.map(({ title, name }, i) => (
-              <li
-                key={i}
-                className="flex flex-col items-center text-center p-4"
-              >
-                {title ? (
-                  <>
-                    <div className="text-sm text-gray-500">{title}</div>
-                    <div className="">{name}</div>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-sm hidden md:block">&nbsp;</div>
-                    <div>{name}</div>
-                  </>
-                )}
+              <li key={i} className="text-center">
+                <div className="text-sm uppercase tracking-wide text-ink-muted">
+                  {title ?? ' '}
+                </div>
+                <div className="mt-0.5 font-medium text-brand-900">{name}</div>
               </li>
             ))}
           </ul>

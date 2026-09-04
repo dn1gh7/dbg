@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-// import svg from '../assets/logo_rund.svg';
 import { Link, Outlet, NavLink } from 'react-router';
 
 interface NavItem {
@@ -20,28 +18,6 @@ export default function NavBar({
 }: NavBarProps) {
   return (
     <>
-      {/* Mobile Hamburger Button */}
-      {/* <div className="md:hidden fixed z-50">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-black focus:outline-none"
-        >
-          <svg
-            className="h-8 w-8"
-            fill="none"
-            stroke={isOpen ? '#000000' : '#ffffff'}
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-            />
-          </svg>
-        </button>
-      </div> */}
-
       {/* Sidebar for Desktop & Responsive Drawer */}
       <nav
         className={`fixed top-0 left-0 z-49 h-screen bg-white shadow-md transform 
@@ -71,8 +47,8 @@ export default function NavBar({
           <Link to="/">
             <img
               className="w-20 sm:w-30 md:w-50 mx-auto "
-              src={'logo_rund.svg'}
-              alt="Logo"
+              src="/logo_rund.svg"
+              alt="Deutsch-Bulgarische Gesellschaft e. V."
             />
           </Link>
 
@@ -80,13 +56,14 @@ export default function NavBar({
             {navItems.map((item, i) => (
               <li key={i}>
                 <NavLink
-                  // className=" block p-0.5 py-1 body-text border-l-2 sm:p-2 md:p-3  hover:bg-cambridge hover:text-white"
                   className={({ isActive }) =>
-                    `block p-0.5 py-1 body-text border-l-4 sm:p-2 md:p-3 hover:bg-cambridge hover:text-white ${
-                      isActive
-                        ? 'border-cambridge hover:'
-                        : 'border-transparent'
-                    }`
+                    `block rounded-r-md border-l-4 px-2 py-2 md:px-3 md:py-2.5 transition-colors
+                     hover:bg-brand-100 hover:text-brand-900
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
+                       isActive
+                         ? 'border-brand-600 bg-brand-50 font-semibold text-brand-900'
+                         : 'border-transparent text-ink'
+                     }`
                   }
                   to={item.link}
                   onClick={handleCloseClick} // Close menu on click
@@ -99,9 +76,6 @@ export default function NavBar({
         </div>
 
         <div className="mb-2 text-center underline decoration-cambridge decoration-2">
-          {/* <Link to={'impressum'} onClick={() => setIsOpen(false)}>
-              Impressum
-            </Link> */}
           <Link to={'impressum'} onClick={handleCloseClick}>
             Impressum
           </Link>

@@ -1,7 +1,13 @@
 import { Link } from 'react-router';
 import type { CmsEvent } from '../lib/strapi/events';
 
-export const EventCard = (event: CmsEvent, index: number) => {
+const dateFormat = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+});
+
+export function EventCard({ event }: { event: CmsEvent }) {
   const thumb =
     event.cardImageUrl ||
     (event.imgPaths[0] && event.imgPaths[0].length > 0
@@ -10,33 +16,35 @@ export const EventCard = (event: CmsEvent, index: number) => {
     '/Cyril-methodius-small.jpg';
 
   return (
-    <Link to={`/events/${event.id}`} key={index}>
-      <div
-        key={index}
-        className="flex flex-col border-[#2e2f2f] hover:outline-solid hover:outline-2 hover:outline-periwinkleh outline-offset-2 border-2 rounded-md overflow-hidden"
-      >
-        <img
-          src={thumb}
-          className="h-20 object-cover object-top"
-          alt=""
-        />
-        <div className="flex flex-col p-2  h-1/2 justify-between">
-          <h2 className="line-clamp-2">{event.title}</h2>
-          <div className="flex items-center">
-            <span>{new Date(event.startDate).toLocaleDateString('de-DE')}</span>
-            {event.endDate && (
-              <>
-                <span className="px-2 text-cambridge" aria-hidden="true">
-                  &middot;
-                </span>
-                <span>
-                  {new Date(event.endDate).toLocaleDateString('de-DE')}
-                </span>
-              </>
-            )}
-          </div>
-        </div>
+    <Link
+      to={`/events/${event.id}`}
+      className="group flex flex-col overflow-hidden rounded-md border border-brand-200 bg-white
+        transition-shadow hover:shadow-md
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+    >
+      <img
+        src={thumb}
+        className="h-28 w-full object-cover object-top"
+        alt=""
+      />
+      <div className="flex flex-1 flex-col gap-2 p-4">
+        <h3 className="line-clamp-3 font-semibold leading-snug text-brand-900 group-hover:text-brand-700">
+          {event.title}
+        </h3>
+        <p className="mt-auto text-sm text-ink-muted">
+          <time dateTime={new Date(event.startDate).toISOString()}>
+            {dateFormat.format(new Date(event.startDate))}
+          </time>
+          {event.endDate && (
+            <>
+              {' – '}
+              <time dateTime={new Date(event.endDate).toISOString()}>
+                {dateFormat.format(new Date(event.endDate))}
+              </time>
+            </>
+          )}
+        </p>
       </div>
     </Link>
   );
-};
+}

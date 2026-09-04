@@ -11,9 +11,9 @@ export default function Contact() {
       <p>Dr. Sigrun Comati</p>
       <p>Postfach 1207, 65402 Rüsselsheim</p>
       <p>
-        <a className=" " href="">
+        <a href="mailto:comati@t-online.de">
           <Mail className="inline" />
-          <span className="underline ml-2 hover:bg-cambridge visited:text-visited">
+          <span className="link-inline ml-2">
             comati@t-online.de
           </span>
         </a>
@@ -23,7 +23,7 @@ export default function Contact() {
         <a
           href="https://comati.de/"
           target="_blank"
-          className="underline ml-2 hover:bg-cambridge visited:text-visited"
+          className="link-inline ml-2"
         >
           www.comati.de
         </a>
@@ -36,9 +36,9 @@ export default function Contact() {
       <p>Hohentübingen, Burgsteige 11</p>
       <p>72070 Tübingen</p>
       <p>
-        <a className=" " href="">
+        <a href="mailto:raiko.krauss@uni-tuebingen.de">
           <Mail className="inline" />
-          <span className="underline ml-2 hover:bg-cambridge visited:text-visited">
+          <span className="link-inline ml-2">
             raiko.krauss@uni-tuebingen.de
           </span>
         </a>
@@ -46,7 +46,7 @@ export default function Contact() {
       <p>
         <Globe className="inline" />
         <a
-          className="underline ml-2 hover:bg-cambridge visited:text-visited"
+          className="link-inline ml-2"
           href="https://uni-tuebingen.de/fakultaeten/philosophische-fakultaet/fachbereiche/altertums-und-kunstwissenschaften/ur-und-fruehgeschichte-und-archaeologie-des-mittelalters/abteilungen/juengere-urgeschichte/mitarbeiter/nach-funktion/krauss-raiko-prof-dr/"
         >
           Raiko Krauß @ Universität Tübingen
@@ -58,9 +58,9 @@ export default function Contact() {
       <p>Rießerseestr. 5</p>
       <p>12527 Berlin</p>
       <p>
-        <a className=" " href="">
+        <a href="mailto:sabine.lefevre@hu-berlin.de">
           <Mail className="inline" />
-          <span className="underline ml-2 hover:bg-cambridge visited:text-visited">
+          <span className="link-inline ml-2">
             sabine.lefevre@hu-berlin.de
           </span>
         </a>

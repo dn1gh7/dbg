@@ -8,8 +8,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "cms": "docker compose --env-file .env.docker up",
+    "cms:down": "docker compose --env-file .env.docker down",
+    "cms:logs": "docker compose --env-file .env.docker logs -f strapi",
+    "cms:seed": "docker compose --env-file .env.docker exec strapi npm run seed",
+    "prod:up": "docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d",
+    "prod:down": "docker compose -f docker-compose.prod.yaml --env-file .env.docker down"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",
@@ -29,7 +33,6 @@
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
-    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "prettier": "3.5.3",
     "typescript": "~5.7.2",

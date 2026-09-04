@@ -4,6 +4,9 @@
   min-height: 100vh;
 }
 
-p {
-  margin-bottom: 15px;
+/* Body-copy spacing. Scoped to <main>: unlayered rules like this one outrank every
+   Tailwind utility, so an unscoped `p` was silently adding 1rem under the society
+   name in the header — and only on the pages where that name is a <p>. */
+main p {
+  margin-bottom: 1rem;
 }

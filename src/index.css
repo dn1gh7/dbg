@@ -7,7 +7,9 @@
   font-weight: 400;
   font-size: 16px;
 
-  color-scheme: light dark;
+  /* The palette below is light-only; claiming `light dark` gave dark-mode browsers
+     dark form controls and scrollbars against a white page. */
+  color-scheme: light;
   color: black;
   background-color: white;
 
@@ -15,42 +17,119 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* scrollbar-gutter: stable; */
   overflow-x: hidden;
 }
 
+/* Nudge the root size up on very small phones. This must be an absolute unit: `rem`
+   here resolves against the root itself, so `2rem` meant a 32px base, not a bump. */
 @media only screen and (max-width: 400px) {
   :root {
-    font-size: 2rem;
+    font-size: 18px;
   }
 }
 
-/* --color-cambridge: #82c09a; */
-
 @theme {
+  /* One blue family, from the original #b8ccf2. That colour survives as `brand-200`
+     — it is a fine *surface*, but at 1.6:1 against white it can never carry white
+     text, so anything with text on it uses 600/700 (7.2:1) or dark text (9.2:1). */
+  --color-brand-50: #f4f7fd;
+  --color-brand-100: #e3ebfa;
+  --color-brand-200: #b8ccf2;
+  --color-brand-300: #93b0e4;
+  --color-brand-400: #6a8bcb;
+  --color-brand-500: #4a6cae;
+  --color-brand-600: #3a5691;
+  --color-brand-700: #2d4372;
+  --color-brand-800: #24355a;
+  --color-brand-900: #1b2742;
+
+  --color-ink: #1f2933;
+  --color-ink-muted: #52606d;
+
   --color-visited: #551a8b;
+  --color-orangeone: #d64933;
+
+  /* Kept so existing utility names still resolve. Prefer the brand-* scale. */
   --color-cambridge: #b8ccf2;
   --color-cambridge1: #82c09a;
   --color-periwinkleh: #98a5bf;
   --color-periwinkle: #b8ccf2;
-  --color-orangeone: #d64933;
 }
 
 @layer components {
+  /* ---- Typography -------------------------------------------------------- */
   .heading {
-    @apply text-base sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-brand-900;
   }
   .subheading {
-    @apply text-base mb-2 md:text-lg lg:text-xl font-semibold text-gray-600;
+    @apply text-lg md:text-xl font-semibold tracking-tight;
   }
+  /* Body copy was text-xs on mobile and text-2xl (24px) on large screens — both
+     outside a comfortable reading range. 16–17px with relaxed leading instead. */
   .body-text {
-    @apply text-xs sm:text-base md:text-lg lg:text-2xl text-gray-800;
+    @apply text-base md:text-[1.0625rem] leading-relaxed text-ink;
+  }
+  /* Caps line length. Long measures are the main readability problem on wide
+     screens, where the old xl:px-50 padding was doing this job by accident. */
+  .measure {
+    @apply max-w-[68ch];
+  }
+
+  /* ---- Section headings -------------------------------------------------- */
+  /* Was: bg-cambridge + text-white (1.6:1). Same bar, readable text.
+     Tailwind v4 cannot @apply one custom class inside another, so the shared
+     utilities are spelled out in each rule rather than composed. */
+  .section-heading {
+    @apply text-lg md:text-xl font-semibold tracking-tight
+      bg-brand-200 text-brand-900 rounded-sm px-3 py-2 mt-10 mb-4 first:mt-0;
+  }
+
+  /* ---- Buttons ----------------------------------------------------------- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5
+      font-semibold text-center no-underline
+      transition-colors duration-200 ease-out
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600
+      focus-visible:ring-offset-2
+      bg-brand-600 text-white hover:bg-brand-700;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5
+      font-semibold text-center no-underline
+      transition-colors duration-200 ease-out
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600
+      focus-visible:ring-offset-2
+      bg-white text-brand-700 ring-1 ring-brand-300 hover:bg-brand-50;
+  }
+  /* Compact variant for the cards in the publication swiper. */
+  .btn-pill {
+    @apply inline-flex items-center justify-center rounded-sm px-2 py-1
+      text-sm font-medium text-white no-underline
+      bg-brand-600 hover:bg-brand-700 transition-colors duration-200
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600
+      focus-visible:ring-offset-1;
+  }
+
+  /* ---- Links ------------------------------------------------------------- */
+  .link-inline {
+    @apply underline decoration-brand-400 underline-offset-2
+      hover:text-brand-700 hover:decoration-brand-700
+      visited:text-visited
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600
+      focus-visible:ring-offset-1 rounded-xs;
   }
 }
 
 @layer base {
+  /* The rich-text renderer emits bare <p>/<ul>/<h3>, so they need sane defaults. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
 }
 
 html {
-  height: 100vh;
+  min-height: 100%;
 }

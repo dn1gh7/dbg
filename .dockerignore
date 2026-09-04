@@ -1,0 +1,9 @@
+node_modules
+dist
+cms
+docker-compose*.yaml
+.git
+.env
+.env.*
+!.env.example
+*.log

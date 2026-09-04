@@ -1,11 +1,42 @@
 <!-- Site built by Tilman Kühn-Velten. Images by Nikolaus Kühn-Velten. -->
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo_rund.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Deutsch-Bulgarische Gesellschaft e. V.</title>
+    <meta
+      name="description"
+      content="Die Deutsch-Bulgarische Gesellschaft e. V. fördert die wissenschaftlichen und kulturellen Beziehungen zwischen Deutschland und Bulgarien – mit Publikationen, Symposien, Vorträgen und Ausstellungen."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Deutsch-Bulgarische Gesellschaft e. V."
+    />
+    <meta
+      property="og:description"
+      content="Die Deutsch-Bulgarische Gesellschaft e. V. fördert die wissenschaftlichen und kulturellen Beziehungen zwischen Deutschland und Bulgarien."
+    />
+    <meta property="og:image" content="/Cyril-methodius-small.jpg" />
+    <meta property="og:locale" content="de_DE" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      // The site used HashRouter while it was hosted on GitHub Pages. Rewrite any
+      // surviving /#/… bookmark to its real path so old links keep working.
+      (function () {
+        var hash = window.location.hash;
+        if (hash.indexOf('#/') === 0) {
+          window.location.replace(
+            window.location.pathname.replace(/\/$/, '') + hash.slice(1)
+          );
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
