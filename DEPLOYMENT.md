@@ -28,7 +28,7 @@ so on disk they are `dbg_dbg_strapi_pgdata` and `dbg_dbg_strapi_uploads`:
 ### Where assets actually live
 
 Everything the site displays is in the media library: the historical covers and PDFs
-were moved there by [`npm run migrate:assets`](#option-b--seed-then-migrate-the-assets),
+were moved there by [`npm run migrate:assets`](#migrating-assets-into-the-media-library),
 and anything an editor adds lands in the same place. Media lives in the
 `dbg_strapi_uploads` volume and is served from the **CMS** origin, which makes that
 volume load-bearing — lose it and every cover and PDF 404s.
@@ -55,23 +55,7 @@ media field is empty. Any entry still on a string is one the migration has not c
 
 ## Before the first deploy
 
-### 1. Commit the deployment files
-
-Several files needed for deployment are currently untracked. If you deploy by cloning
-the repo, they will not be on the server:
-
-```
-.dockerignore
-docker-compose.prod.yaml
-docker/nginx.conf
-cms/Dockerfile.prod
-cms/scripts/          # seed.ts, seed-data.ts, migrate-assets.ts
-cms/src/components/
-```
-
-Check with `git status` and commit them before anything else.
-
-### 2. Generate production secrets
+### 1. Generate production secrets
 
 Do **not** reuse the ones from your development checkout. Generate a fresh set:
 
@@ -79,17 +63,17 @@ Do **not** reuse the ones from your development checkout. Generate a fresh set:
 openssl rand -base64 32
 ```
 
-You need six values: `STRAPI_APP_KEYS` (four of them, comma-separated),
-`STRAPI_API_TOKEN_SALT`, `STRAPI_ADMIN_JWT_SECRET`, `STRAPI_TRANSFER_TOKEN_SALT`,
-`STRAPI_JWT_SECRET`, `STRAPI_ENCRYPTION_KEY`, plus a `POSTGRES_PASSWORD`.
+You need six values: `APP_KEYS` (four of them, comma-separated), `API_TOKEN_SALT`,
+`ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, `JWT_SECRET`, `ENCRYPTION_KEY`, plus a
+`POSTGRES_PASSWORD`.
 
-> **`STRAPI_ENCRYPTION_KEY` is not recoverable.** Change it later and existing encrypted
+> **`ENCRYPTION_KEY` is not recoverable.** Change it later and existing encrypted
 > values become unreadable. Store all of these in a password manager before you deploy —
-> `.env.docker` is gitignored, so the copy on the server is the only one that exists.
+> `.env` is gitignored, so the copy on the server is the only one that exists.
 
-### 3. Write `.env.docker` on the server
+### 2. Write `.env` on the server
 
-Copy section 2 of [`.env.example`](.env.example) and fill it in. Three values must be
+Copy [`.env.example`](.env.example) and fill it in. Three values must be
 the **public origins the browser sees**, not container addresses:
 
 ```bash
@@ -98,12 +82,13 @@ STRAPI_CORS_ORIGINS=https://dbg.example.de   # the SITE's origin, not the CMS's
 VITE_STRAPI_URL=https://cms.example.de       # baked into the frontend bundle
 ```
 
+Compose auto-loads `.env` from the project directory, so no `--env-file` flag is needed.
 Every secret in `docker-compose.prod.yaml` is guarded with `:?`, so Compose refuses to
 start and names the missing variable rather than substituting an empty string. Verify
 before starting anything:
 
 ```bash
-docker compose -f docker-compose.prod.yaml --env-file .env.docker config --quiet
+docker compose -f docker-compose.prod.yaml config --quiet
 ```
 
 ---
@@ -117,7 +102,7 @@ Create the admin before opening the port.
 ```bash
 # 1. Build and start. Keep 1337 unreachable from the internet for now
 #    (bind to localhost in the compose file, or leave the firewall closed).
-docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d
+docker compose -f docker-compose.prod.yaml up --build -d
 
 # 2. Wait for Strapi. First boot takes a few minutes; an empty response on 1337
 #    means it is still starting, not that it failed. See Troubleshooting.
@@ -142,8 +127,7 @@ docker compose -f docker-compose.prod.yaml exec strapi \
 > a `[cms]` console warning. It looks like it is working.
 
 **5. Load the content** — see [Bootstrapping content](#bootstrapping-content) below.
-Importing an export archive is the shorter path and also restores the permissions from
-step 4.
+The import also restores the permissions from step 4.
 
 **6. Open the ports** through the reverse proxy, then run the
 [verification checklist](#verifying-a-deploy).
@@ -152,18 +136,17 @@ step 4.
 
 ## Bootstrapping content
 
-A fresh database is empty. There are two ways to fill it, and they end in the same
-place — every entry pointing at files in the media library rather than at paths in the
-frontend bundle.
+A fresh database is empty. Fill it by importing an export archive, so every entry ends
+up pointing at files in the media library rather than at paths in the frontend bundle.
 
-### Option A — import an export archive (recommended)
+### Import an export archive
 
 `strapi export` bundles entries, uploaded files, schema and configuration into one
 archive. Produce it from an installation that is already correct — normally your local
 dev stack:
 
 ```bash
-docker compose --env-file .env.docker exec strapi   npx strapi export --no-encrypt --file exports/dbg-content-$(date +%F)
+docker compose exec strapi   npx strapi export --no-encrypt --file exports/dbg-content-$(date +%F)
 ```
 
 The archive lands in `cms/exports/` on the host (bind-mounted in the dev stack). That
@@ -192,28 +175,21 @@ Three things to know before running it:
   403 trap for you. It does **not** carry admin panel users — create the admin first, as
   in [First deploy](#first-deploy).
 
-### Option B — seed, then migrate the assets
+### Migrating assets into the media library
 
-The path that produced the archive in the first place, and the one to use if you want to
-watch each step:
+Only needed when entries point at a file path in the frontend bundle instead of at an
+upload — which happens if you add files to `public/` and reference them from a `…Url`
+string field in the admin. The historical covers and PDFs were moved this way already,
+and the export archive carries the result, so a normal deploy never runs this.
 
 ```bash
-# 1. Create the entries the site shipped with, pointing at paths in the frontend bundle.
-docker compose -f docker-compose.prod.yaml exec strapi npm run seed
-
-# 2. Copy the site's assets into the CMS container. The frontend is not mounted
+# 1. Copy the site's assets into the CMS container. The frontend is not mounted
 #    there, so this is a plain file copy, not a volume.
 docker cp public/. dbg-strapi:/tmp/site-public/
 
-# 3. Upload them into the media library and repoint every entry at the upload.
+# 2. Upload them into the media library and repoint every entry at the upload.
 docker compose -f docker-compose.prod.yaml exec   -e ASSET_DIR=/tmp/site-public strapi npm run migrate:assets
 ```
-
-`npm run seed` is **idempotent per collection**: a collection that already has entries is
-skipped whole, printing `already present, skipping`. There is no per-entry merge, so if
-you created test content first, the seed skips that entire collection — delete the
-entries in the admin and re-run. It does not create the admin user and does not touch
-permissions.
 
 `npm run migrate:assets` is idempotent per field: an entry whose media field is already
 set is left alone, so re-running it is safe and uploads nothing twice. For each
@@ -221,8 +197,8 @@ set is left alone, so re-running it is safe and uploads nothing twice. For each
 It prints what it could not resolve — an external URL, a missing file, or a value someone
 typed by hand — and leaves those entries untouched for you to fix in the admin.
 
-Run it once more after adding assets to `public/`, or not at all if editors are adding
-their content through the admin panel, which is the point of the migration.
+Editors adding content through the admin panel upload straight into the media library,
+which is the point — so this stays a rare maintenance step, not part of a deploy.
 
 ---
 
@@ -288,8 +264,8 @@ docker run --rm -v dbg_dbg_strapi_uploads:/u -v "$PWD:/out" alpine \
   tar czf /out/dbg-uploads-$(date +%F).tar.gz -C /u .
 ```
 
-Back up `.env.docker` separately, once — it is gitignored and not in any dump, and
-without `STRAPI_ENCRYPTION_KEY` a restore is incomplete.
+Back up `.env` separately, once — it is gitignored and not in any dump, and without
+`ENCRYPTION_KEY` a restore is incomplete.
 
 Strapi's own export bundles content, media and schema into one archive, which is better
 for moving between environments — see
@@ -321,7 +297,7 @@ Restore the uploads tarball into the volume, then restart Strapi.
 
 ```bash
 git pull
-docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d web
+docker compose -f docker-compose.prod.yaml up --build -d web
 ```
 
 Content is untouched — it is in the database, not the image.
@@ -329,10 +305,10 @@ Content is untouched — it is in the database, not the image.
 ### Changing the CMS domain
 
 `VITE_STRAPI_URL` is inlined into the bundle by Vite at **build** time. Editing
-`.env.docker` and restarting does nothing; the `web` image must be rebuilt:
+`.env` and restarting does nothing; the `web` image must be rebuilt:
 
 ```bash
-docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d web
+docker compose -f docker-compose.prod.yaml up --build -d web
 ```
 
 Update `STRAPI_PUBLIC_URL` and `STRAPI_CORS_ORIGINS` at the same time, and restart
@@ -343,7 +319,7 @@ Update `STRAPI_PUBLIC_URL` and `STRAPI_CORS_ORIGINS` at the same time, and resta
 **The Content-Type Builder is disabled in production** — it writes `schema.json` files to
 disk, which `strapi start` will not allow. So:
 
-1. Make the change locally against the dev stack (`docker compose --env-file .env.docker up`)
+1. Make the change locally against the dev stack (`docker compose up`)
 2. Commit the generated `cms/src/api/**/schema.json` and `cms/types/generated/`
 3. `git pull` on the server and rebuild the `strapi` service
 
@@ -388,7 +364,7 @@ served. Check the browser console for `[cms]` warnings, then verify
 `https://cms.example.de/api/publications` returns 200 rather than 403.
 
 **Compose refuses to start, naming a variable.** A `:?`-guarded secret is missing from
-`.env.docker`. That is the guard working — add it.
+`.env`. That is the guard working — add it.
 
 **Strapi exits at boot with no useful error.** Usually a missing `ENCRYPTION_KEY`;
 Strapi 5 will not start without one.

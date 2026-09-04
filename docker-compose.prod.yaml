@@ -3,16 +3,14 @@
 # Unlike docker-compose.yaml, nothing is bind-mounted: both images are built from the
 # repo and Strapi runs `strapi start` against a pre-built admin, not `develop`.
 #
-#   cp .env.example .env.docker   # keep section 2, then replace every secret
-#   docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d
+#   cp .env.example .env          # then replace every secret
+#   docker compose -f docker-compose.prod.yaml up --build -d
 #
 # Two values must be the public origins the *browser* sees, not container addresses:
 #   VITE_STRAPI_URL     – baked into the frontend bundle at build time
 #   STRAPI_PUBLIC_URL   – used by Strapi to build uploaded-media URLs
 #
-# First run only, to seed the site's existing content (this does NOT create the admin
-# user — see DEPLOYMENT.md for the full ordering):
-#   docker compose -f docker-compose.prod.yaml exec strapi npm run seed
+# Loading content into a fresh database is a `strapi import` — see DEPLOYMENT.md.
 
 services:
   postgres:
@@ -21,7 +19,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-strapi}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.docker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       POSTGRES_DB: ${POSTGRES_DB:-strapi}
     volumes:
       - dbg_strapi_pgdata:/var/lib/postgresql/data
@@ -52,16 +50,16 @@ services:
       DATABASE_PORT: 5432
       DATABASE_NAME: ${POSTGRES_DB:-strapi}
       DATABASE_USERNAME: ${POSTGRES_USER:-strapi}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.docker}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       DATABASE_SSL: 'false'
-      STRAPI_PUBLIC_URL: ${STRAPI_PUBLIC_URL:?set STRAPI_PUBLIC_URL in .env.docker}
-      STRAPI_CORS_ORIGINS: ${STRAPI_CORS_ORIGINS:?set STRAPI_CORS_ORIGINS in .env.docker}
-      APP_KEYS: ${STRAPI_APP_KEYS:?set STRAPI_APP_KEYS in .env.docker}
-      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT:?}
-      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET:?}
-      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT:?}
-      JWT_SECRET: ${STRAPI_JWT_SECRET:?}
-      ENCRYPTION_KEY: ${STRAPI_ENCRYPTION_KEY:?}
+      STRAPI_PUBLIC_URL: ${STRAPI_PUBLIC_URL:?set STRAPI_PUBLIC_URL in .env}
+      STRAPI_CORS_ORIGINS: ${STRAPI_CORS_ORIGINS:?set STRAPI_CORS_ORIGINS in .env}
+      APP_KEYS: ${APP_KEYS:?set APP_KEYS in .env}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:?}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:?}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:?}
+      JWT_SECRET: ${JWT_SECRET:?}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?}
     ports:
       - '1337:1337'
 
@@ -71,7 +69,7 @@ services:
       dockerfile: Dockerfile
       args:
         # Vite inlines this at build time, so it is a build arg, not a runtime env var.
-        VITE_STRAPI_URL: ${VITE_STRAPI_URL:?set VITE_STRAPI_URL in .env.docker}
+        VITE_STRAPI_URL: ${VITE_STRAPI_URL:?set VITE_STRAPI_URL in .env}
     container_name: dbg-web
     restart: unless-stopped
     depends_on:

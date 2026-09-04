@@ -8,12 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "cms": "docker compose --env-file .env.docker up",
-    "cms:down": "docker compose --env-file .env.docker down",
-    "cms:logs": "docker compose --env-file .env.docker logs -f strapi",
-    "cms:seed": "docker compose --env-file .env.docker exec strapi npm run seed",
-    "prod:up": "docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d",
-    "prod:down": "docker compose -f docker-compose.prod.yaml --env-file .env.docker down"
+    "cms": "docker compose up",
+    "cms:down": "docker compose down",
+    "cms:logs": "docker compose logs -f strapi",
+    "prod:up": "docker compose -f docker-compose.prod.yaml up --build -d",
+    "prod:down": "docker compose -f docker-compose.prod.yaml down"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",

@@ -13,11 +13,10 @@
 #     VITE_STRAPI_URL=http://localhost:1337
 # - Allowed CORS origins come from STRAPI_CORS_ORIGINS (see cms/config/middlewares.ts).
 #
-# Copy section 2 of .env.example → .env.docker, replace the secrets, and:
-#   docker compose --env-file .env.docker up --build
+# Copy .env.example → .env, replace the secrets, and:
+#   docker compose up --build
 #
-# Then seed the CMS with the site's existing content:
-#   docker compose exec strapi npm run seed
+# Compose auto-loads .env from the project directory, so there is no --env-file flag.
 #
 # The Strapi container uses DATABASE_HOST=postgres (the Docker service name), not localhost.
 
@@ -68,12 +67,12 @@ services:
       DATABASE_SSL: 'false'
       STRAPI_PUBLIC_URL: ${STRAPI_PUBLIC_URL:-http://localhost:1337}
       STRAPI_CORS_ORIGINS: ${STRAPI_CORS_ORIGINS:-http://localhost:8080}
-      APP_KEYS: ${STRAPI_APP_KEYS:?set STRAPI_APP_KEYS in .env.docker}
-      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT:?set STRAPI_API_TOKEN_SALT in .env.docker}
-      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET:?set STRAPI_ADMIN_JWT_SECRET in .env.docker}
-      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT:?set STRAPI_TRANSFER_TOKEN_SALT in .env.docker}
-      JWT_SECRET: ${STRAPI_JWT_SECRET:?set STRAPI_JWT_SECRET in .env.docker}
-      ENCRYPTION_KEY: ${STRAPI_ENCRYPTION_KEY:?set STRAPI_ENCRYPTION_KEY in .env.docker}
+      APP_KEYS: ${APP_KEYS:?set APP_KEYS in .env}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:?set API_TOKEN_SALT in .env}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:?set ADMIN_JWT_SECRET in .env}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:?set TRANSFER_TOKEN_SALT in .env}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?set ENCRYPTION_KEY in .env}
     ports:
       - '1337:1337'
 

@@ -12,29 +12,30 @@ explaining which endpoint failed.
 
 ```bash
 npm install
-echo 'VITE_STRAPI_URL=http://localhost:1337' > .env.development.local   # or omit for static content
+cp .env.example .env                     # then replace every secret
 npm run dev                              # http://localhost:8080
 ```
 
 Start the CMS alongside it:
 
 ```bash
-cp .env.example .env.docker              # keep section 2, replace every secret
-docker compose --env-file .env.docker up --build
-docker compose exec strapi npm run seed  # first run only
+docker compose up --build
 ```
 
 ## CREATING STRAPI SECRETS
 
 openssl rand -base64 32
 
-Strapi's admin is at http://localhost:1337/admin. After seeding, grant the **Public**
+Strapi's admin is at http://localhost:1337/admin. Grant the **Public**
 role `find` / `findOne` on all four content types under
 _Settings → Users & Permissions → Roles → Public_, or the site gets 403s and falls back.
 
 ### Environment variables
 
-Frontend (`.env.development.local`, or Docker build args in production):
+Everything lives in a single gitignored `.env`, copied from `.env.example`. Docker
+Compose and Vite both auto-load it, so no `--env-file` flag is needed anywhere.
+
+Frontend:
 
 | Variable                | Purpose                                                        |
 | ----------------------- | -------------------------------------------------------------- |
@@ -42,13 +43,14 @@ Frontend (`.env.development.local`, or Docker build args in production):
 | `VITE_STRAPI_API_TOKEN` | Optional; only if the API is not publicly readable.            |
 
 Vite inlines these at **build** time, so they end up in the bundle — never put a
-write-capable token here. Note the file is `.env.development.local`, not `.env.local`:
-Vite loads `.env.local` in production builds too, which is how `http://localhost:1337`
-once got baked into a deployed bundle.
+write-capable token here. Vite loads `.env` in production builds too, so **change
+`VITE_STRAPI_URL` before building for production**: a leftover `http://localhost:1337`
+gets baked into the deployed bundle, which has happened before.
 
-CMS secrets live in `.env.docker`. Every variable the project reads — frontend, Compose
-and bare-metal Strapi — is documented in the single `.env.example`, which says per
-section which file it belongs in.
+Sharing one file with Vite is safe for the secrets themselves: only `VITE_`-prefixed
+variables are inlined into the bundle, and both `.dockerignore` files exclude `.env`.
+
+Every variable the project reads is documented in `.env.example`.
 
 ## Content types
 
@@ -59,8 +61,8 @@ the mapping silently (well, with a `[cms]` warning).
 
 Assets can come from either place: upload a file to Strapi's media library, or point the
 matching `…Url` string field at something already in `public/`. Uploaded media wins. The
-seed uses the string fields, so `public/` remains the source of truth for the existing
-PDFs and covers until they're moved into the media library.
+existing PDFs and covers are already in the media library; `public/` keeps its copies as
+the static fallback the site renders when Strapi is unreachable.
 
 ## Deploying
 
@@ -70,8 +72,8 @@ admin accounts and troubleshooting. The short version:
 Both images build from this repo:
 
 ```bash
-cp .env.example .env.docker               # keep section 2: secrets, STRAPI_PUBLIC_URL, VITE_STRAPI_URL
-docker compose -f docker-compose.prod.yaml --env-file .env.docker up --build -d
+cp .env.example .env                      # secrets, STRAPI_PUBLIC_URL, VITE_STRAPI_URL
+docker compose -f docker-compose.prod.yaml up --build -d
 ```
 
 - `web` — nginx serving the built SPA on port 8080. `docker/nginx.conf` has the
@@ -97,4 +99,10 @@ bookmarks to their new paths.
 | `npm run lint`    | ESLint                                           |
 | `npm run preview` | Serve `dist/` locally                            |
 
-In `cms/`: `npm run develop`, `npm run start`, `npm run build`, `npm run seed`.
+| `npm run cms`      | Dev stack (Strapi + Postgres) via Compose        |
+| `npm run cms:down` | Stop it                                          |
+| `npm run cms:logs` | Follow Strapi's logs                             |
+| `npm run prod:up`  | Production stack, detached                       |
+
+Strapi runs in Docker only — the compose files inject its configuration, so there is no
+`cms/.env`.

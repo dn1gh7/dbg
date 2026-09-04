@@ -4,11 +4,11 @@
  *
  *   ASSET_DIR=/tmp/site-public npm run migrate:assets
  *
- * The seed creates entries that point at files shipped with the frontend — e.g. a
- * publication whose `coverImageUrl` is `/publications/9783954771769_g.jpg`, served by
- * nginx out of the built site. That works, but it means an editor cannot replace a
- * cover without a developer committing a file and rebuilding the image. This script
- * uploads each of those files and repoints the entry at the upload.
+ * An entry can point at a file shipped with the frontend — e.g. a publication whose
+ * `coverImageUrl` is `/publications/9783954771769_g.jpg`, served by nginx out of the
+ * built site. That works, but it means an editor cannot replace a cover without a
+ * developer committing a file and rebuilding the image. This script uploads each of
+ * those files and repoints the entry at the upload.
  *
  * For every `<name>Url` string field it uploads the file and fills the matching media
  * field, then clears the string. `src/lib/strapi/*` already prefers media over the
@@ -67,8 +67,8 @@ const skipped: string[] = [];
 function resolveAsset(value: string): string | null {
   if (!value.startsWith('/')) return null;
 
-  // Seed values are written as plain paths, but a value copied out of a browser may be
-  // percent-encoded; on disk the names have real spaces and umlauts.
+  // These are usually written as plain paths, but a value copied out of a browser may
+  // be percent-encoded; on disk the names have real spaces and umlauts.
   const candidates = [value, decodeURIComponent(value)];
 
   for (const candidate of candidates) {
@@ -123,8 +123,8 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  // `any` for the same reason seed.ts uses it: the documents API is typed per content
-  // type UID, and these are iterated as plain strings.
+  // `any` because the documents API is typed per content-type UID, and these are
+  // iterated as plain strings.
   const app: any = await createStrapi(await compileStrapi()).load();
   const cache = new Map<string, number>();
   let migrated = 0;
