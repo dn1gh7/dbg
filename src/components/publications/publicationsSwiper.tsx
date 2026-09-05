@@ -44,6 +44,17 @@ export default function PublicationSwiper({
         {`.${paginationClass} .swiper-pagination-bullet-active {
           background-color: ${themeColor} !important;
           }
+          /* Themed per instance, so the nav buttons' colours live here rather than on
+             the elements: an inline style outranks any :hover rule. */
+          .${prevClass},
+          .${nextClass} {
+            background-color: ${themeColor};
+            transition: background-color 200ms;
+          }
+          .${prevClass}:hover,
+          .${nextClass}:hover {
+            background-color: color-mix(in srgb, ${themeColor} 85%, black);
+          }
         `}
       </style>
       <div className="self-center order-2">
@@ -51,10 +62,9 @@ export default function PublicationSwiper({
       </div>
       <div className="flex items-center order-1">
         <button
-          className={`${prevClass} p-1 rounded-full`}
+          className={`${prevClass} p-1 rounded-full cursor-pointer`}
           aria-label="Vorherige Publikation"
           type="button"
-          style={{ backgroundColor: themeColor }}
         >
           <div className="w-3 h-3 md:w-5 md:h-5 bg-[url('/chevron-left.svg')] bg-no-repeat bg-center bg-contain"></div>
         </button>
@@ -130,10 +140,9 @@ export default function PublicationSwiper({
         </Swiper>
 
         <button
-          className={`${nextClass}  p-1 rounded-full`}
+          className={`${nextClass}  p-1 rounded-full cursor-pointer`}
           type="button"
           aria-label="Nächste Publikation"
-          style={{ backgroundColor: themeColor }}
         >
           <div className="w-3 h-3  md:w-5 md:h-5 bg-[url('/chevron-right.svg')] bg-no-repeat bg-center bg-contain"></div>
         </button>
