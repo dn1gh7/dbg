@@ -28,10 +28,9 @@ so on disk they are `dbg_dbg_strapi_pgdata` and `dbg_dbg_strapi_uploads`:
 ### Where assets actually live
 
 Everything the site displays is in the media library: the historical covers and PDFs
-were moved there by [`npm run migrate:assets`](#migrating-assets-into-the-media-library),
-and anything an editor adds lands in the same place. Media lives in the
-`dbg_strapi_uploads` volume and is served from the **CMS** origin, which makes that
-volume load-bearing — lose it and every cover and PDF 404s.
+were moved there once, and anything an editor adds lands in the same place. Media lives
+in the `dbg_strapi_uploads` volume and is served from the **CMS** origin, which makes
+that volume load-bearing — lose it and every cover and PDF 404s.
 
 The same files are still in the frontend's `public/` folder and still in git. That is
 deliberate, not leftovers: `src/globals.ts` and
@@ -39,9 +38,10 @@ deliberate, not leftovers: `src/globals.ts` and
 the site renders when Strapi is unreachable. Keep them — they are why an outage degrades
 to a stale-but-complete page instead of an empty one.
 
-The `…Url` string fields on `event` and `publication` are the bridge between the two
-worlds. Uploaded media always wins for a given entry; the string is only read when the
-media field is empty. Any entry still on a string is one the migration has not covered.
+The two worlds were once bridged by `…Url` string fields on `event` and `publication`,
+read whenever the matching media field was empty. Every entry has since been repointed at
+an upload and those fields have been removed from the schemas, so the media library is
+now the only source for CMS-served assets.
 
 ---
 
@@ -174,31 +174,6 @@ Three things to know before running it:
 - It **does** carry the `Public` role's `find`/`findOne` grants, so it undoes the usual
   403 trap for you. It does **not** carry admin panel users — create the admin first, as
   in [First deploy](#first-deploy).
-
-### Migrating assets into the media library
-
-Only needed when entries point at a file path in the frontend bundle instead of at an
-upload — which happens if you add files to `public/` and reference them from a `…Url`
-string field in the admin. The historical covers and PDFs were moved this way already,
-and the export archive carries the result, so a normal deploy never runs this.
-
-```bash
-# 1. Copy the site's assets into the CMS container. The frontend is not mounted
-#    there, so this is a plain file copy, not a volume.
-docker cp public/. dbg-strapi:/tmp/site-public/
-
-# 2. Upload them into the media library and repoint every entry at the upload.
-docker compose -f docker-compose.prod.yaml exec   -e ASSET_DIR=/tmp/site-public strapi npm run migrate:assets
-```
-
-`npm run migrate:assets` is idempotent per field: an entry whose media field is already
-set is left alone, so re-running it is safe and uploads nothing twice. For each
-`…Url` string it uploads the file, fills the matching media field and clears the string.
-It prints what it could not resolve — an external URL, a missing file, or a value someone
-typed by hand — and leaves those entries untouched for you to fix in the admin.
-
-Editors adding content through the admin panel upload straight into the media library,
-which is the point — so this stays a rare maintenance step, not part of a deploy.
 
 ---
 

@@ -55,11 +55,7 @@ export function mapStrapiPublication(
 ): Publication {
   const f = flattenEntity(entity);
 
-  // Uploaded media wins; the *Url string fields are the fallback for assets that still
-  // live in the site's own public/ folder rather than Strapi's media library.
-  const cover =
-    mediaUrl(baseUrl, f.coverImage ?? f.cover_image ?? f.image) ||
-    pickString(f, ['coverImageUrl']);
+  const cover = mediaUrl(baseUrl, f.coverImage ?? f.cover_image ?? f.image);
 
   return {
     title: pickString(f, ['title']),
@@ -71,12 +67,8 @@ export function mapStrapiPublication(
       'externalUrl',
       'external_url',
     ]),
-    pdf_path1:
-      mediaUrl(baseUrl, f.pdfVerzeichnis ?? f.pdf_verzeichnis ?? f.pdf_path1) ||
-      pickString(f, ['pdfVerzeichnisUrl']),
-    pdf_path2:
-      mediaUrl(baseUrl, f.pdfInfo ?? f.pdf_info ?? f.pdf_path2) ||
-      pickString(f, ['pdfInfoUrl']),
+    pdf_path1: mediaUrl(baseUrl, f.pdfVerzeichnis ?? f.pdf_verzeichnis ?? f.pdf_path1),
+    pdf_path2: mediaUrl(baseUrl, f.pdfInfo ?? f.pdf_info ?? f.pdf_path2),
     img_path: cover || '/Cyril-methodius-small.jpg',
   };
 }
