@@ -4,7 +4,7 @@
   "info": {
     "singularName": "link-section",
     "pluralName": "link-sections",
-    "displayName": "Link-Section"
+    "displayName": "Link-Sektionen und Links"
   },
   "options": {
     "draftAndPublish": true
@@ -21,8 +21,8 @@
     },
     "rows": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.link-row"
+      "component": "shared.link-row",
+      "repeatable": true
     }
   }
 }

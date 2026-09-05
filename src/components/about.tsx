@@ -40,9 +40,6 @@ export default function About() {
               to="/membership"
             >
               <span>Unterstützen auch Sie unsere Arbeit </span>
-              <span className="hidden xl:inline">
-                und werden Sie Mitglied der Deutsch-Bulgarischen Gesellschaft
-              </span>
             </Link>
           </div>
 

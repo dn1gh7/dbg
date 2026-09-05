@@ -4,7 +4,7 @@
   "info": {
     "singularName": "presidium-member",
     "pluralName": "presidium-members",
-    "displayName": "Presidium-Member"
+    "displayName": "Präsidiums-Mitglieder"
   },
   "options": {
     "draftAndPublish": true

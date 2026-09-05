@@ -29,7 +29,7 @@ export default function Events() {
     <div className="body-text">
       <h2 className="section-heading">Aktuell</h2>
       {current.length === 0 ? (
-        <p className="text-ink-muted">Zurzeit sind keine Termine angekündigt.</p>
+        <p className="text-ink-muted">Zurzeit sind keine Veranstaltungen angekündigt.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {current.map((event) => (
