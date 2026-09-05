@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import type { CmsEvent } from '../lib/strapi/events';
+import CardThumb from './cardThumb';
 
 const dateFormat = new Intl.DateTimeFormat('de-DE', {
   day: '2-digit',
@@ -8,13 +9,6 @@ const dateFormat = new Intl.DateTimeFormat('de-DE', {
 });
 
 export function EventCard({ event }: { event: CmsEvent }) {
-  const thumb =
-    event.cardImageUrl ||
-    (event.imgPaths[0] && event.imgPaths[0].length > 0
-      ? event.imgPaths[0]
-      : null) ||
-    '/Cyril-methodius-small.jpg';
-
   return (
     <Link
       to={`/events/${event.id}`}
@@ -22,11 +16,7 @@ export function EventCard({ event }: { event: CmsEvent }) {
         transition-shadow hover:shadow-md
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
     >
-      <img
-        src={thumb}
-        className="h-28 w-full object-cover object-top"
-        alt=""
-      />
+      <CardThumb src={event.cardImageUrl} />
       <div className="flex flex-1 flex-col gap-2 p-4">
         <h3 className="line-clamp-3 font-semibold leading-snug text-brand-900 group-hover:text-brand-700">
           {event.title}

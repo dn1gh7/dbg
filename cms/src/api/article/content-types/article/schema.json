@@ -1,11 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "events",
+  "collectionName": "articles",
   "info": {
-    "singularName": "event",
-    "pluralName": "events",
-    "displayName": "Veranstaltungen",
-    "description": "An event. Title, dates and preview image are fixed; everything the page shows lives in the editor-ordered blocks of `body`."
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Beiträge",
+    "description": "A contribution. Title and preview image are fixed; everything the page shows lives in the editor-ordered blocks of `body`."
   },
   "options": {
     "draftAndPublish": true
@@ -16,11 +16,8 @@
       "type": "string",
       "required": true
     },
-    "startDate": {
-      "type": "date"
-    },
-    "endDate": {
-      "type": "date"
+    "sortOrder": {
+      "type": "integer"
     },
     "cardImage": {
       "type": "media",

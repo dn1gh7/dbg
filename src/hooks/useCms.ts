@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import { isStrapiConfigured } from '../lib/strapi/config';
 import {
+  fetchCmsArticleById,
+  fetchCmsArticles,
   fetchCmsEventById,
   fetchCmsEvents,
   fetchCmsHomePublications,
   fetchCmsLinkSections,
   fetchCmsPresidium,
   fetchCmsPublicationsByCategory,
+  type CmsArticle,
   type CmsEvent,
   type LinkSection,
 } from '../lib/strapi/queries';
 import type { PresidiumMember } from '../globals';
 import type { Publication } from '../components/publications/publications';
-import { STATIC_CMS_EVENTS, STATIC_PRESIDIUM } from '../globals';
+import { STATIC_ARTICLES, STATIC_CMS_EVENTS, STATIC_PRESIDIUM } from '../globals';
 import {
   STATIC_BIBLIOTHEK,
   STATIC_BULGARICA,
@@ -94,6 +97,15 @@ export function useCmsEvents(): AsyncState<CmsEvent[]> {
     'events',
     STATIC_CMS_EVENTS,
     fetchCmsEvents,
+    []
+  );
+}
+
+export function useCmsArticles(): AsyncState<CmsArticle[]> {
+  return useCmsList<CmsArticle[]>(
+    'articles',
+    STATIC_ARTICLES,
+    fetchCmsArticles,
     []
   );
 }
@@ -209,6 +221,60 @@ export function useCmsEventDetail(
 
     return () => ac.abort();
   }, [eventId, configured]);
+
+  return state;
+}
+
+type ArticleDetailState = {
+  status: 'loading' | 'ready';
+  article: CmsArticle | null;
+};
+
+export function useCmsArticleDetail(
+  articleId: string | undefined
+): ArticleDetailState {
+  const configured = isStrapiConfigured();
+  const [state, setState] = useState<ArticleDetailState>({
+    status: 'loading',
+    article: null,
+  });
+
+  useEffect(() => {
+    if (!articleId) {
+      setState({ status: 'ready', article: null });
+      return;
+    }
+
+    // Unlike events there is no built-in article content, so without a CMS the detail
+    // page has nothing to fall back to and reports "not found".
+    if (!configured) {
+      setState({
+        status: 'ready',
+        article: STATIC_ARTICLES.find((a) => a.id === articleId) ?? null,
+      });
+      return;
+    }
+
+    const ac = new AbortController();
+    setState({ status: 'loading', article: null });
+
+    (async () => {
+      try {
+        const article = await fetchCmsArticleById(articleId, ac.signal);
+        if (ac.signal.aborted) return;
+        setState({ status: 'ready', article });
+      } catch (err) {
+        if (ac.signal.aborted || isAbort(err)) return;
+        reportCmsFailure(`article ${articleId}`, err);
+        setState({
+          status: 'ready',
+          article: STATIC_ARTICLES.find((a) => a.id === articleId) ?? null,
+        });
+      }
+    })();
+
+    return () => ac.abort();
+  }, [articleId, configured]);
 
   return state;
 }

@@ -430,10 +430,50 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
+  collectionName: 'articles';
+  info: {
+    description: 'A contribution. Title and preview image are fixed; everything the page shows lives in the editor-ordered blocks of `body`.';
+    displayName: 'Beitr\u00E4ge';
+    pluralName: 'articles';
+    singularName: 'article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    body: Schema.Attribute.DynamicZone<
+      [
+        'content.rich-text',
+        'content.image',
+        'content.gallery',
+        'content.button-row',
+      ]
+    >;
+    cardImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article.article'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sortOrder: Schema.Attribute.Integer;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
-    displayName: 'Event';
+    description: 'An event. Title, dates and preview image are fixed; everything the page shows lives in the editor-ordered blocks of `body`.';
+    displayName: 'Veranstaltungen';
     pluralName: 'events';
     singularName: 'event';
   };
@@ -441,18 +481,22 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    body: Schema.Attribute.DynamicZone<
+      [
+        'content.rich-text',
+        'content.image',
+        'content.gallery',
+        'content.button-row',
+      ]
+    >;
     cardImage: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Blocks;
     endDate: Schema.Attribute.Date;
-    images: Schema.Attribute.Media<'images', true>;
-    invitePdf: Schema.Attribute.Media<'files'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
-    programPdf: Schema.Attribute.Media<'files'>;
     publishedAt: Schema.Attribute.DateTime;
     startDate: Schema.Attribute.Date;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -465,7 +509,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
 export interface ApiLinkSectionLinkSection extends Struct.CollectionTypeSchema {
   collectionName: 'link_sections';
   info: {
-    displayName: 'Link-Section';
+    displayName: 'Link-Sektionen und Links';
     pluralName: 'link-sections';
     singularName: 'link-section';
   };
@@ -496,7 +540,7 @@ export interface ApiPresidiumMemberPresidiumMember
   extends Struct.CollectionTypeSchema {
   collectionName: 'presidium_members';
   info: {
-    displayName: 'Presidium-Member';
+    displayName: 'Pr\u00E4sidiums-Mitglieder';
     pluralName: 'presidium-members';
     singularName: 'presidium-member';
   };
@@ -526,7 +570,7 @@ export interface ApiPresidiumMemberPresidiumMember
 export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
   collectionName: 'publications';
   info: {
-    displayName: 'Publication';
+    displayName: 'Publikationen';
     pluralName: 'publications';
     singularName: 'publication';
   };
@@ -1073,6 +1117,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::article.article': ApiArticleArticle;
       'api::event.event': ApiEventEvent;
       'api::link-section.link-section': ApiLinkSectionLinkSection;
       'api::presidium-member.presidium-member': ApiPresidiumMemberPresidiumMember;

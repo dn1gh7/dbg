@@ -1,5 +1,6 @@
 import { flattenEntity, type StrapiEntity, unwrapStrapiList, unwrapStrapiOne, entityId } from './normalize';
 import { mediaUrl } from './media';
+import { mapBlocks, type CmsBlock } from './blocks';
 
 export type StrapiRichText =
   | string
@@ -10,13 +11,11 @@ export type StrapiRichText =
 export type CmsEvent = {
   id: string;
   title: string;
-  description: StrapiRichText;
   startDate: number;
   endDate?: number;
   cardImageUrl?: string;
-  imgPaths: string[];
-  invitePdfPath: string;
-  programPdfPath: string;
+  /** Everything the detail page renders below the title and date. */
+  body: CmsBlock[];
 };
 
 /** Strapi `date` fields arrive as bare YYYY-MM-DD, which Date.parse reads as UTC
@@ -35,10 +34,6 @@ function parseDateMs(value: unknown): number {
   return Number.isNaN(ts) ? 0 : ts;
 }
 
-function asString(value: unknown): string {
-  return typeof value === 'string' ? value : '';
-}
-
 /** Local midnight today — the cutoff between "Aktuell" and "Archiv". */
 export function startOfToday(): number {
   const now = new Date();
@@ -52,17 +47,6 @@ export function isUpcoming(event: CmsEvent, cutoff = startOfToday()): boolean {
 
 function mapStrapiEvent(baseUrl: string, entity: StrapiEntity): CmsEvent {
   const f = flattenEntity(entity);
-  const imagesField = f.images ?? f.imageGallery ?? f.image_gallery;
-  const imgPaths: string[] = [];
-  if (Array.isArray(imagesField)) {
-    for (const item of imagesField) {
-      const media = mediaUrl(baseUrl, item);
-      if (media) imgPaths.push(media);
-    }
-  } else {
-    const media = mediaUrl(baseUrl, imagesField);
-    if (media) imgPaths.push(media);
-  }
 
   const startDate = parseDateMs(f.startDate ?? f.start_date);
   const endDate = parseDateMs(f.endDate ?? f.end_date);
@@ -70,17 +54,10 @@ function mapStrapiEvent(baseUrl: string, entity: StrapiEntity): CmsEvent {
   return {
     id: entityId(entity),
     title: typeof f.title === 'string' ? f.title : '',
-    description: (f.text ?? f.body ?? f.description ?? null) as StrapiRichText,
     startDate,
     endDate: endDate > 0 ? endDate : undefined,
     cardImageUrl: mediaUrl(baseUrl, f.cardImage ?? f.card_image) || undefined,
-    imgPaths: imgPaths.length ? imgPaths : [''],
-    // Uploaded media wins; the *Url string fields are the fallback for PDFs that still
-    // live in the site's own public/ folder rather than Strapi's media library.
-    invitePdfPath:
-      mediaUrl(baseUrl, f.invitePdf ?? f.invite_pdf) || asString(f.invitePdfUrl),
-    programPdfPath:
-      mediaUrl(baseUrl, f.programPdf ?? f.program_pdf) || asString(f.programPdfUrl),
+    body: mapBlocks(baseUrl, f.body),
   };
 }
 

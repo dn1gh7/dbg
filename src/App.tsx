@@ -6,6 +6,8 @@ import Home from './components/home';
 import About from './components/about';
 import Events from './components/events';
 import EventDetail from './components/eventDetail';
+import Articles from './components/articles';
+import ArticleDetail from './components/articleDetail';
 import Publications from './components/publications/publications';
 import Links from './components/links/links';
 import Membership from './components/membership';
@@ -19,6 +21,7 @@ import ContentContainer from './components/contentContainer';
 const navItems = [
   { title: 'Über uns', link: 'about' },
   { title: 'Veranstaltungen', link: 'events' },
+  { title: 'Beiträge', link: 'articles' },
   { title: 'Publikationen', link: 'publications' },
   { title: 'Links', link: 'links' },
   { title: 'Mitgliedschaft', link: 'membership' },
@@ -39,6 +42,7 @@ const TitleManager = ({
       '/': '',
       '/about': 'Über uns',
       '/events': 'Veranstaltungen',
+      '/articles': 'Beiträge',
       '/publications': 'Publikationen',
       '/links': 'Links',
       '/membership': 'Mitgliedschaft',
@@ -47,13 +51,13 @@ const TitleManager = ({
     };
 
     // The router treats /about and /about/ as the same route, so the header has to
-    // as well. An event detail page carries the event's own name as its heading, so
-    // the bar stays on the society name there; anything else unknown is the 404 page.
+    // as well. A detail page carries the entry's own name as its heading, so the bar
+    // stays on the society name there; anything else unknown is the 404 page.
     const path = location.pathname.replace(/\/+$/, '') || '/';
 
     if (path in pathToTitle) {
       setPageTitle(pathToTitle[path]);
-    } else if (path.startsWith('/events/')) {
+    } else if (path.startsWith('/events/') || path.startsWith('/articles/')) {
       setPageTitle('');
     } else {
       setPageTitle('Seite nicht gefunden');
@@ -116,6 +120,8 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="events" element={<Events />} />
             <Route path="events/:eventId" element={<EventDetail />} />
+            <Route path="articles" element={<Articles />} />
+            <Route path="articles/:articleId" element={<ArticleDetail />} />
             <Route path="publications" element={<Publications />} />
             <Route path="links" element={<Links />} />
             <Route path="membership" element={<Membership />} />

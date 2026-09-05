@@ -1,4 +1,6 @@
 import type { CmsEvent } from './lib/strapi/events';
+import type { CmsArticle } from './lib/strapi/articles';
+import type { CmsBlock, CmsFileLink } from './lib/strapi/blocks';
 
 export type SocietyEvent = {
   id: string;
@@ -154,16 +156,40 @@ export const STATIC_PRESIDIUM: PresidiumMember[] = [
   { title: 'Ehrenpräsident', name: 'Prof. Dr. Dr.h.c. H. Schaller' },
 ];
 
+/** The flat fields above are the hand-maintained source; the CMS expresses the same
+ * content as blocks. Convert in the same order the detail page used to render them, so
+ * a fallback event looks like a migrated one. */
+function staticEventBody(e: SocietyEvent): CmsBlock[] {
+  const blocks: CmsBlock[] = [];
+
+  // A plain string is a valid StrapiRichText, so these need no conversion.
+  if (e.text) blocks.push({ kind: 'richText', text: e.text });
+
+  const images = e.imgPaths.filter((p) => p.length > 0);
+  if (images.length) blocks.push({ kind: 'gallery', images });
+
+  const buttons: CmsFileLink[] = [];
+  if (e.invitePdfPath)
+    buttons.push({ label: 'Einladung herunterladen', href: e.invitePdfPath });
+  if (e.programPdfPath)
+    buttons.push({ label: 'Programm herunterladen', href: e.programPdfPath });
+  if (buttons.length) blocks.push({ kind: 'buttons', buttons });
+
+  return blocks;
+}
+
 /** Fallback for useCmsEvents(): the same events in the shape the CMS would return, so
  * the site still shows something when Strapi is unreachable. */
 export const STATIC_CMS_EVENTS: CmsEvent[] = STATIC_EVENTS.map((e) => ({
   id: e.id,
   title: e.title,
-  description: e.text,
   startDate: e.startDate,
   endDate: e.endDate,
   cardImageUrl: e.cardImageUrl,
-  imgPaths: e.imgPaths,
-  invitePdfPath: e.invitePdfPath,
-  programPdfPath: e.programPdfPath,
+  body: staticEventBody(e),
 }));
+
+/** Fallback for useCmsArticles(). Beiträge only ever existed in the CMS, so there is no
+ * built-in content to fall back to — an unreachable Strapi yields an empty list rather
+ * than stale copy. */
+export const STATIC_ARTICLES: CmsArticle[] = [];

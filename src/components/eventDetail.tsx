@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router';
 import { useCmsEventDetail } from '../hooks/useCms';
-import EventGallery from './eventGallery';
-import StrapiRichText from './strapiRichText';
+import ContentBlocks from './contentBlocks';
 
 const dateFormat = new Intl.DateTimeFormat('de-DE', {
   day: '2-digit',
@@ -28,9 +27,6 @@ export default function EventDetail() {
     );
   }
 
-  // mapStrapiEvent pads imgPaths with a single '' when an event has no gallery.
-  const images = event.imgPaths.filter((p) => p.length > 0);
-
   return (
     <article>
       <div className="measure mx-auto">
@@ -53,32 +49,11 @@ export default function EventDetail() {
             </>
           )}
         </p>
-
-        <div className="mt-6 space-y-4">
-          <StrapiRichText value={event.description} />
-        </div>
       </div>
 
-      {images.length > 0 && (
-        <div className="mt-8">
-          <EventGallery images={images} title={event.title} />
-        </div>
-      )}
-
-      {(event.invitePdfPath || event.programPdfPath) && (
-        <div className="measure mx-auto mt-8 flex flex-wrap gap-3">
-          {event.invitePdfPath && (
-            <a className="btn-primary" href={event.invitePdfPath} target="_blank">
-              Einladung herunterladen
-            </a>
-          )}
-          {event.programPdfPath && (
-            <a className="btn-primary" href={event.programPdfPath} target="_blank">
-              Programm herunterladen
-            </a>
-          )}
-        </div>
-      )}
+      {/* Everything below the date comes from the blocks; an event with an empty
+          `Inhalt` renders as just its heading and date. */}
+      <ContentBlocks blocks={event.body} title={event.title} />
     </article>
   );
 }
