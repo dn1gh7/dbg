@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shared_file_links",
+  "info": {
+    "displayName": "File Link",
+    "icon": "file",
+    "description": "A download button with an editor-supplied label."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files",
+        "images"
+      ]
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

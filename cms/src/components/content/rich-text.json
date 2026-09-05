@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_rich_texts",
+  "info": {
+    "displayName": "Text",
+    "icon": "align-left",
+    "description": "Ein Textabschnitt."
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "blocks"
+    }
+  }
+}

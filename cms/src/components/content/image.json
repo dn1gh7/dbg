@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_content_images",
+  "info": {
+    "displayName": "Bild",
+    "icon": "picture",
+    "description": "Ein einzelnes Bild mit optionaler Bildunterschrift."
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "required": true
+    },
+    "caption": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string"
+    }
+  }
+}

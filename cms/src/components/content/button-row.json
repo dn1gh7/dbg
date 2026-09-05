@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_content_button_rows",
+  "info": {
+    "displayName": "Schaltflächen",
+    "icon": "cursor",
+    "description": "Eine Reihe von Schaltflächen mit frei wählbarer Beschriftung."
+  },
+  "options": {},
+  "attributes": {
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.file-link"
+    }
+  }
+}
