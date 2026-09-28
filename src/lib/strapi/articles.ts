@@ -17,6 +17,9 @@ export type CmsArticle = {
   id: string;
   title: string;
   sortOrder: number;
+  /** When the entry was created in Strapi, in ms. Beiträge carry no date of their own,
+   * so this is what "neu/alt" sorts by. */
+  createdAt: number;
   cardImageUrl?: string;
   body: CmsBlock[];
 };
@@ -29,6 +32,7 @@ function mapStrapiArticle(baseUrl: string, entity: StrapiEntity): CmsArticle {
     id: entityId(entity),
     title: typeof f.title === 'string' ? f.title : '',
     sortOrder: Number.isFinite(sortOrder) ? sortOrder : 0,
+    createdAt: typeof f.createdAt === 'string' ? Date.parse(f.createdAt) || 0 : 0,
     cardImageUrl: mediaUrl(baseUrl, f.cardImage) || undefined,
     body: mapBlocks(baseUrl, f.body),
   };

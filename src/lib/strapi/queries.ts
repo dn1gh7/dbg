@@ -1,5 +1,5 @@
 import { getStrapiBaseUrl } from './config';
-import { strapiFetchJson } from './fetchJson';
+import { strapiFetchAll, strapiFetchJson } from './fetchJson';
 import {
   parseLinkSectionsResponse,
   parsePresidiumResponse,
@@ -29,7 +29,7 @@ export async function fetchCmsEvents(
   signal?: AbortSignal
 ): Promise<CmsEvent[]> {
   const base = getStrapiBaseUrl();
-  const json = await strapiFetchJson(
+  const json = await strapiFetchAll(
     `/api/events?sort=startDate:desc&${EVENT_POPULATE}`,
     {
       signal,
@@ -60,8 +60,8 @@ export async function fetchCmsArticles(
   signal?: AbortSignal
 ): Promise<CmsArticle[]> {
   const base = getStrapiBaseUrl();
-  const json = await strapiFetchJson(
-    `/api/articles?sort=sortOrder:asc&${ARTICLE_POPULATE}`,
+  const json = await strapiFetchAll(
+    `/api/articles?sort=createdAt:desc&${ARTICLE_POPULATE}`,
     {
       signal,
     }
@@ -86,7 +86,7 @@ export async function fetchCmsArticleById(
 export async function fetchCmsPresidium(
   signal?: AbortSignal
 ): Promise<PresidiumMember[]> {
-  const json = await strapiFetchJson(
+  const json = await strapiFetchAll(
     `/api/presidium-members?sort=sortOrder:asc&populate=*`,
     {
       signal,
@@ -100,7 +100,7 @@ export async function fetchCmsPublicationsByCategory(
   signal?: AbortSignal
 ): Promise<Publication[]> {
   const base = getStrapiBaseUrl();
-  const json = await strapiFetchJson(
+  const json = await strapiFetchAll(
     `/api/publications?filters[category][$eq]=${encodeURIComponent(category)}&sort=sortOrder:asc&populate=*`,
     { signal }
   );
@@ -111,7 +111,7 @@ export async function fetchCmsHomePublications(
   signal?: AbortSignal
 ): Promise<Publication[]> {
   const base = getStrapiBaseUrl();
-  const json = await strapiFetchJson(
+  const json = await strapiFetchAll(
     `/api/publications?filters[showOnHome][$eq]=true&sort=homeOrder:asc&populate=*`,
     { signal }
   );
@@ -121,7 +121,7 @@ export async function fetchCmsHomePublications(
 export async function fetchCmsLinkSections(
   signal?: AbortSignal
 ): Promise<LinkSection[]> {
-  const json = await strapiFetchJson(
+  const json = await strapiFetchAll(
     `/api/link-sections?sort=sortOrder:asc&populate[rows]=*`,
     { signal }
   );

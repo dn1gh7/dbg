@@ -46,20 +46,19 @@ export default function ContentContainer({
               </button>
 
               <div className="min-w-0">
-                <p className="truncate text-[0.6875rem] md:text-xs font-medium uppercase tracking-[0.14em] text-brand-200">
+                {/* With a title below it, the name stays on one line. Without one (the
+                    landing page) there is room for a second line, so it wraps instead
+                    of being cut off on narrow phones. */}
+                <p
+                  className={`${title ? 'truncate' : ''} text-[0.6875rem] md:text-xs font-medium uppercase tracking-[0.14em] text-brand-200`}
+                >
                   Deutsch-Bulgarische Gesellschaft e. V.
                 </p>
-                {/* The title row keeps its height even when empty. The header is
-                    vertically centred, so dropping the row outright would slide the
-                    society name down on pages without a title. The heights match the
-                    line-height of the text below: 1.75rem, then 2.25rem from md. */}
-                <div className="min-h-7 md:min-h-9">
-                  {title && (
-                    <h1 className="truncate text-lg md:text-3xl font-semibold tracking-tight text-white">
-                      {title}
-                    </h1>
-                  )}
-                </div>
+                {title && (
+                  <h1 className="truncate text-lg md:text-3xl font-semibold tracking-tight text-white">
+                    {title}
+                  </h1>
+                )}
               </div>
             </div>
           </div>

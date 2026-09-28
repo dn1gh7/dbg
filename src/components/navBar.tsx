@@ -44,7 +44,7 @@ export default function NavBar({
         </button>
 
         <div className="mt-2 md:mt-15">
-          <Link to="/">
+          <Link to="/" onClick={handleCloseClick}>
             <img
               className="w-20 sm:w-30 md:w-50 mx-auto "
               src="/logo_rund.svg"
