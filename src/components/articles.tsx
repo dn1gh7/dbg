@@ -10,7 +10,7 @@ import {
 } from '../lib/listFilters';
 
 export default function Articles() {
-  const { data: articles } = useCmsArticles();
+  const { data: articles, loading } = useCmsArticles();
   const { query, sort, setQuery, setSort } = useListParams();
 
   // Beiträge have no date field of their own, so "neu/alt" goes by when the entry was
@@ -27,14 +27,9 @@ export default function Articles() {
 
   const { visible, hasMore, showMore } = useShowMore(results, `${query}|${sort}`);
 
-  if (articles.length === 0) {
-    return (
-      <div className="body-text">
-        <p className="text-ink-muted">Zurzeit sind keine Beiträge veröffentlicht.</p>
-      </div>
-    );
-  }
-
+  // The controls render from the first paint. Returning early while the list is still
+  // empty would show "keine Beiträge" during loading and then push everything down once
+  // the data arrived.
   return (
     <div className="body-text">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -42,7 +37,9 @@ export default function Articles() {
         <SortSelect value={sort} onChange={setSort} />
       </div>
 
-      {results.length === 0 ? (
+      {loading ? null : articles.length === 0 ? (
+        <p className="text-ink-muted">Zurzeit sind keine Beiträge veröffentlicht.</p>
+      ) : results.length === 0 ? (
         <p className="text-ink-muted">Keine Beiträge zu dieser Suche.</p>
       ) : (
         <>
